@@ -105,6 +105,8 @@
         "destroyed": "{count} destroyed",
         "rollRandom": "Roll a Random Sector",
         "rolled": "Random sector: cell {cell}",
+        "clearRolled": "Clear Sector",
+        "rolledHint": "The rolled sector is highlighted on the map for every player until you clear it or commit the round.",
         "cellSquares": "Cell size: {squares} squares ({feet} ft)",
         "cellSquaresFrozen": "This scene's cell size is fixed at {squares} squares. Erase every painted cell to change it."
       },

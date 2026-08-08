@@ -71,6 +71,51 @@ export const ELEMENT_COLORS = {
   water: 0x4aa3df,
 } as const;
 
+/**
+ * Served paths for the zone art, one file per element. Never `import`ed: in the Vite lib build an
+ * import inlines a second copy of every image into `dist/`. The filenames are the artist's own and
+ * deliberately do not match the element ids, which is why this map is explicit.
+ */
+export const ELEMENT_ART = {
+  lightning: `modules/${MODULE_ID}/assets/lightning.webp`,
+  wind: `modules/${MODULE_ID}/assets/vortex.webp`,
+  water: `modules/${MODULE_ID}/assets/wave.webp`,
+} as const;
+
+/** White leaves art whose own palette already carries the element; the grey vortex needs the tint. */
+export const ELEMENT_ART_TINTS = {
+  lightning: 0xffffff,
+  wind: ELEMENT_COLORS.wind,
+  water: 0xffffff,
+} as const;
+
+/**
+ * Sprite footprint in coarse cells; above 1 the art bleeds past its cell so a zone does not read as
+ * a tile. For water this is the wall's depth along its heading — its length comes from the front.
+ */
+export const ELEMENT_ART_SCALE = { lightning: 1.2, wind: 1.4, water: 1.35 } as const;
+
+/** The vortex art is a perspective view whose debris base sits below the image centre. */
+export const WIND_ART_ANCHOR_Y = 0.62;
+
+/** Faintest strike in the lightning history ramp; the newest is always fully opaque. */
+export const LIGHTNING_MIN_ALPHA = 0.25;
+
+/** Proposal sprites sit under the dashed outline that marks them uncommitted. */
+export const GHOST_SPRITE_ALPHA = 0.3;
+
+/**
+ * The rolled-sector marker. Magenta because nothing else on the canvas uses it — the damage states
+ * are amber and red, the ghosts and zones are the elements' blues.
+ */
+export const ROLLED_CELL_COLOR = 0xff3fbf;
+export const ROLLED_CELL_FILL_ALPHA = 0.3;
+export const ROLLED_CELL_BORDER_SCALE = 0.02;
+export const ROLLED_PULSE_MS = 1400;
+export const ROLLED_PULSE_MIN_ALPHA = 0.45;
+/** How long the GM's camera takes to reach a freshly rolled sector. */
+export const ROLLED_PAN_MS = 400;
+
 /** How much recent motion each element keeps for rendering, and the flood front's width. */
 export const LIGHTNING_HISTORY = 4;
 export const WIND_TRAIL_LENGTH = 6;

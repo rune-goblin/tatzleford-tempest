@@ -6,6 +6,7 @@ import type { StormProposal, StormState, TempestSceneState } from '@/types';
 const storm: StormState = {
   seed: 1,
   round: 3,
+  rolledCell: null,
   lightning: { destroyed: false, strikes: [{ i: 1, j: 1 }, { i: 4, j: 2 }] },
   wind: { destroyed: false, pos: { i: 7, j: 3 }, trail: [], heading: 'e' },
   water: { destroyed: false, front: [{ i: 2, j: 5 }, { i: 2, j: 6 }], heading: 'n' },

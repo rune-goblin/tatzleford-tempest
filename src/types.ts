@@ -71,6 +71,11 @@ export interface StormState {
   /** PRNG seed; each advance consumes it and persists its successor. */
   seed: number;
   round: number;
+  /**
+   * The sector the GM last rolled, or `null`. Lives in the scene flag rather than on the GM's
+   * client so `updateScene` fans it out and players see the same highlight.
+   */
+  rolledCell: CellKey | null;
   lightning: LightningState;
   wind: WindState;
   water: WaterState;

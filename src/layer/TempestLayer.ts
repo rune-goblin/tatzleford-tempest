@@ -1,13 +1,35 @@
 import type { SceneControl } from 'foundry-pf2e/foundry/client/applications/ui/scene-controls.mjs';
-import { CELL_STATES, CONTROL_TOOLS, DEFAULT_CELL_SQUARES, LANDMARKS, LAYER_NAME, MODULE_ID } from '../constants';
+import {
+  CELL_STATES,
+  CONTROL_TOOLS,
+  DEFAULT_CELL_SQUARES,
+  GHOST_SPRITE_ALPHA,
+  LANDMARKS,
+  LAYER_NAME,
+  MODULE_ID,
+  ROLLED_PULSE_MIN_ALPHA,
+  ROLLED_PULSE_MS,
+} from '../constants';
 import { defaultTempestState } from '../data/TempestStateModel';
 import type { SceneLike } from '../services/grid';
-import { cellKey, cellsBetween, coarseGrid, containsCell, pointToCell } from '../services/grid';
+import { cellKey, cellSizePx, cellsBetween, coarseGrid, containsCell, pointToCell } from '../services/grid';
 import { readState, writeState } from '../services/storm/controller';
 import { getDefaultCellSquares, getLandmarkLabels, getOverlayOpacity, isOverlayVisible } from '../settings';
 import type { Cell, CellKey, CellState, CoarseGrid, Point, StateChanges, StormProposal, TempestSceneState } from '../types';
 import { tempestSceneControl } from './controls';
-import { drawCells, drawGrid, drawProposal, drawStorm, labelScale, landmarkLabel, stripNoteIndex } from './render';
+import {
+  drawCells,
+  drawGrid,
+  drawProposal,
+  drawRolledCell,
+  drawStorm,
+  labelScale,
+  landmarkLabel,
+  pulseAlpha,
+  rolledCellRect,
+  stripNoteIndex,
+} from './render';
+import { loadZoneArt } from './textures';
 
 const { InteractionLayer } = foundry.canvas.layers;
 
@@ -51,6 +73,11 @@ function inertGraphics(): PIXI.Graphics {
   return graphics;
 }
 
+/** Containers are rebuilt every redraw; `destroy` without `texture: true` spares the shared art. */
+function clearSprites(container: PIXI.Container): void {
+  container.removeChildren().forEach((child) => child.destroy({ children: true }));
+}
+
 /** The localized landmark name, or the note's own text with its "A5. " map index stripped. */
 function landmarkName(id: string, note: string): string {
   const key = `${MODULE_ID}.landmarks.${id}`;
@@ -77,7 +104,15 @@ export class TempestLayer extends InteractionLayer {
   #gridLines: PIXI.Graphics | null = null;
   #cellFills: PIXI.Graphics | null = null;
   #stormMarks: PIXI.Graphics | null = null;
+  #stormArt: PIXI.Container | null = null;
   #ghosts: PIXI.Graphics | null = null;
+  #ghostArt: PIXI.Container | null = null;
+  /** The rolled sector, player-facing and so deliberately outside `#overlay`. */
+  #alerts: PIXI.Container | null = null;
+  #rolledMark: PIXI.Graphics | null = null;
+  #rolledKey: CellKey | null = null;
+  #pulseFrom = 0;
+  #pulsing = false;
   /** Player-facing landmark markers, deliberately outside `#overlay`. */
   #labels: PIXI.Container | null = null;
 
@@ -102,14 +137,22 @@ export class TempestLayer extends InteractionLayer {
     this.#gridLines = this.#overlay.addChild(inertGraphics());
     this.#cellFills = this.#overlay.addChild(inertGraphics());
     this.#stormMarks = this.#overlay.addChild(inertGraphics());
+    this.#stormArt = this.#overlay.addChild(inertContainer());
     this.#ghosts = this.#overlay.addChild(inertGraphics());
+    this.#ghostArt = this.#overlay.addChild(inertContainer());
+    this.#ghostArt.alpha = GHOST_SPRITE_ALPHA;
+    this.#alerts = this.addChild(inertContainer());
     this.#labels = this.addChild(inertContainer());
     this.refresh();
+    // The zone art loads once per canvas; the redraw it triggers is the one that shows the sprites.
+    void loadZoneArt().then(() => this.refresh());
   }
 
   protected override async _tearDown(options: object): Promise<void> {
-    this.#overlay = this.#labels = null;
-    this.#gridLines = this.#cellFills = this.#stormMarks = this.#ghosts = null;
+    this.#stopPulse();
+    this.#overlay = this.#labels = this.#stormArt = this.#ghostArt = this.#alerts = null;
+    this.#gridLines = this.#cellFills = this.#stormMarks = this.#ghosts = this.#rolledMark = null;
+    this.#rolledKey = null;
     this.#cancelDrag();
     this.#proposal = null;
     await super._tearDown(options);
@@ -122,6 +165,7 @@ export class TempestLayer extends InteractionLayer {
   refresh(committed?: TempestSceneState): void {
     const scene = canvas.scene;
     if (!scene || !this.#overlay || !this.#gridLines || !this.#cellFills || !this.#stormMarks || !this.#ghosts) return;
+    if (!this.#stormArt || !this.#ghostArt) return;
 
     this.#overlay.visible = isOverlayVisible();
     this.#overlay.alpha = getOverlayOpacity();
@@ -137,13 +181,67 @@ export class TempestLayer extends InteractionLayer {
     drawCells(this.#cellFills, this.#previewCells(state), grid);
 
     this.#stormMarks.clear();
-    drawStorm(this.#stormMarks, state.storm, grid);
+    clearSprites(this.#stormArt);
+    drawStorm(this.#stormMarks, this.#stormArt, state.storm, grid);
 
     this.#ghosts.clear();
-    if (this.#proposal && game.user.isGM) drawProposal(this.#ghosts, this.#proposal, grid);
+    clearSprites(this.#ghostArt);
+    if (this.#proposal && game.user.isGM) drawProposal(this.#ghosts, this.#ghostArt, this.#proposal, grid);
 
+    this.#drawRolled(state, grid);
     this.#drawLabels(scene, state);
   }
+
+  /* -------------------------------------------- */
+  /*  Rolled sector                               */
+  /* -------------------------------------------- */
+
+  /**
+   * The sector the GM last rolled. Read straight from committed state and drawn for every client —
+   * no `isGM` branch, so a player sees exactly what the GM sees.
+   */
+  #drawRolled(state: TempestSceneState, grid: CoarseGrid): void {
+    const alerts = this.#alerts;
+    if (!alerts) return;
+    clearSprites(alerts);
+    this.#rolledMark = null;
+
+    const key = state.storm.rolledCell;
+    const rect = rolledCellRect(key, grid);
+    if (!rect) {
+      this.#rolledKey = null;
+      this.#stopPulse();
+      return;
+    }
+    // A fresh roll restarts the breath at its brightest; a redraw for any other reason does not.
+    if (key !== this.#rolledKey) {
+      this.#rolledKey = key;
+      this.#pulseFrom = performance.now();
+    }
+
+    const mark = alerts.addChild(inertGraphics());
+    drawRolledCell(mark, rect, cellSizePx(grid));
+    this.#rolledMark = mark;
+    this.#startPulse();
+  }
+
+  /** Only ticks while a sector is up: with no roll on the map the layer costs nothing per frame. */
+  #startPulse(): void {
+    if (this.#pulsing) return;
+    this.#pulsing = true;
+    canvas.app?.ticker.add(this.#pulse);
+  }
+
+  #stopPulse(): void {
+    if (!this.#pulsing) return;
+    this.#pulsing = false;
+    canvas.app?.ticker.remove(this.#pulse);
+  }
+
+  #pulse = (): void => {
+    if (!this.#rolledMark) return;
+    this.#rolledMark.alpha = pulseAlpha(performance.now() - this.#pulseFrom, ROLLED_PULSE_MS, ROLLED_PULSE_MIN_ALPHA, 1);
+  };
 
   /* -------------------------------------------- */
   /*  Landmark labels                             */
@@ -157,7 +255,7 @@ export class TempestLayer extends InteractionLayer {
     const labels = this.#labels;
     if (!labels) return;
     labels.visible = getLandmarkLabels();
-    labels.removeChildren().forEach((child) => child.destroy({ children: true }));
+    clearSprites(labels);
     if (!labels.visible) return;
 
     for (const definition of LANDMARKS) {

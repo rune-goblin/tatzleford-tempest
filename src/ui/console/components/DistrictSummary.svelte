@@ -20,11 +20,15 @@
   {/if}
 
   <div class="row">
-    <button type="button" onclick={() => consoleState.rollRandom()}>{t('console.cells.rollRandom')}</button>
+    <button type="button" onclick={() => void consoleState.rollRandom()}>{t('console.cells.rollRandom')}</button>
     {#if consoleState.rolled}
       <span class="rolled">{t('console.cells.rolled', { cell: consoleState.rolled })}</span>
+      <button type="button" onclick={() => void consoleState.clearRolled()}>{t('console.cells.clearRolled')}</button>
     {/if}
   </div>
+  {#if consoleState.rolled}
+    <p class="hint">{t('console.cells.rolledHint')}</p>
+  {/if}
 </section>
 
 <style>

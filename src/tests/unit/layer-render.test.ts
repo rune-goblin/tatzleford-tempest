@@ -4,11 +4,15 @@ import {
   dashSegment,
   dashedRectSegments,
   fadeRamp,
+  frontAdvance,
+  frontPlacement,
   gridLineSegments,
   labelScale,
   landmarkDamage,
   pipOffsets,
   proposalCells,
+  pulseAlpha,
+  rolledCellRect,
   spiralPoints,
   stripNoteIndex,
 } from '@/layer/render';
@@ -147,6 +151,108 @@ describe('proposalCells', () => {
       wind: [],
       water: [],
     });
+  });
+});
+
+describe('frontAdvance', () => {
+  it('advances along the axis the wall stands across', () => {
+    expect(frontAdvance('e')).toEqual({ x: 1, y: 0 });
+    expect(frontAdvance('w')).toEqual({ x: -1, y: 0 });
+    expect(frontAdvance('n')).toEqual({ x: 0, y: -1 });
+    expect(frontAdvance('s')).toEqual({ x: 0, y: 1 });
+  });
+
+  it('follows the east-west component of a diagonal, matching the wall it produces', () => {
+    expect(frontAdvance('ne')).toEqual({ x: 1, y: 0 });
+    expect(frontAdvance('se')).toEqual({ x: 1, y: 0 });
+    expect(frontAdvance('nw')).toEqual({ x: -1, y: 0 });
+    expect(frontAdvance('sw')).toEqual({ x: -1, y: 0 });
+  });
+});
+
+describe('frontPlacement', () => {
+  const vertical = [{ i: 1, j: 0 }, { i: 1, j: 1 }];
+  const horizontal = [{ i: 0, j: 0 }, { i: 1, j: 0 }, { i: 2, j: 0 }];
+
+  it('anchors on the leading edge of an eastward wall and spans its whole run', () => {
+    expect(frontPlacement(vertical, 'e', even, 1)).toEqual({
+      x: 400,
+      y: 200,
+      length: 400,
+      depth: 200,
+      rotation: 0,
+    });
+  });
+
+  it('flips to the other edge when the wall heads west', () => {
+    const placement = frontPlacement(vertical, 'w', even, 1);
+    expect(placement?.x).toBe(200);
+    expect(placement?.rotation).toBeCloseTo(Math.PI);
+  });
+
+  it('turns a quarter-circle for a wall running east-west', () => {
+    expect(frontPlacement(horizontal, 's', even, 1)).toEqual({
+      x: 300,
+      y: 200,
+      length: 600,
+      depth: 200,
+      rotation: Math.PI / 2,
+    });
+    expect(frontPlacement(horizontal, 'n', even, 1)?.y).toBe(0);
+    expect(frontPlacement(horizontal, 'n', even, 1)?.rotation).toBeCloseTo(-Math.PI / 2);
+  });
+
+  it('scales the depth by the requested cell multiple, leaving the length to the front', () => {
+    expect(frontPlacement(vertical, 'e', even, 1.5)?.depth).toBe(300);
+    expect(frontPlacement(vertical, 'e', even, 1.5)?.length).toBe(400);
+  });
+
+  it('measures a partial edge column from the clipped rect', () => {
+    const placement = frontPlacement([{ i: 18, j: 0 }], 'e', tatzlford, 1);
+    expect(placement?.x).toBe(7200);
+    expect(placement?.length).toBe(396);
+  });
+
+  it('has nothing to place for an empty or off-grid front', () => {
+    expect(frontPlacement([], 'e', even, 1)).toBeNull();
+    expect(frontPlacement([{ i: 99, j: 99 }], 'e', even, 1)).toBeNull();
+  });
+});
+
+describe('rolledCellRect', () => {
+  it('gives the whole cell, not a marker', () => {
+    expect(rolledCellRect('1,0', even)).toEqual({ x: 200, y: 0, width: 200, height: 200 });
+  });
+
+  it('clips a partial edge cell to the scene', () => {
+    expect(rolledCellRect('18,12', tatzlford)).toEqual({ x: 7128, y: 4752, width: 72, height: 48 });
+  });
+
+  it('is empty with no roll, a malformed key, or a cell off this grid', () => {
+    expect(rolledCellRect(null, even)).toBeNull();
+    expect(rolledCellRect('', even)).toBeNull();
+    expect(rolledCellRect('nope', even)).toBeNull();
+    expect(rolledCellRect('99,0', even)).toBeNull();
+  });
+});
+
+describe('pulseAlpha', () => {
+  it('starts at full, dips to the floor, and returns over one period', () => {
+    expect(pulseAlpha(0, 1000, 0.4, 1)).toBeCloseTo(1);
+    expect(pulseAlpha(500, 1000, 0.4, 1)).toBeCloseTo(0.4);
+    expect(pulseAlpha(1000, 1000, 0.4, 1)).toBeCloseTo(1);
+  });
+
+  it('never leaves the range', () => {
+    for (let t = 0; t < 3000; t += 37) {
+      const alpha = pulseAlpha(t, 1400, 0.45, 1);
+      expect(alpha).toBeGreaterThanOrEqual(0.45);
+      expect(alpha).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it('holds at full for a degenerate period', () => {
+    expect(pulseAlpha(123, 0, 0.4, 1)).toBe(1);
   });
 });
 

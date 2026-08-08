@@ -10,6 +10,7 @@ function storm(overrides: Partial<StormState> = {}): StormState {
   return {
     seed: 90210,
     round: 3,
+    rolledCell: null,
     lightning: { destroyed: false, strikes: [{ i: 0, j: 0 }] },
     wind: { destroyed: false, pos: { i: 4, j: 2 }, trail: [{ i: 4, j: 2 }], heading: 'e' },
     water: {

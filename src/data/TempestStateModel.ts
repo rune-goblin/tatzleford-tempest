@@ -57,6 +57,12 @@ export class TempestStateModel extends foundry.abstract.DataModel {
       storm: new fields.SchemaField({
         seed: new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0 }),
         round: new fields.NumberField({ required: true, nullable: false, integer: true, min: 0, initial: 0 }),
+        rolledCell: new fields.StringField<string, string, true, true, true>({
+          required: true,
+          nullable: true,
+          blank: false,
+          initial: null,
+        }),
         lightning: new fields.SchemaField({
           destroyed: new fields.BooleanField({ initial: false }),
           strikes: cellListField(),
@@ -86,6 +92,7 @@ export function defaultTempestState(cellSquares = DEFAULT_CELL_SQUARES, seed = D
     storm: {
       seed,
       round: 0,
+      rolledCell: null,
       lightning: { destroyed: false, strikes: [] },
       wind: { destroyed: false, pos: null, trail: [], heading: 'e' },
       water: { destroyed: false, front: [], heading: 'e' },

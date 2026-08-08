@@ -3,7 +3,7 @@ import { parseTempestState } from '../../data/TempestStateModel';
 import { getAutoZoneCards, getDefaultCellSquares } from '../../settings';
 import { cellKey, coarseGrid, paintedCells } from '../grid';
 import type { SceneLike } from '../grid';
-import type { Cell, Element, StateChanges, StormProposal, TempestSceneState } from '../../types';
+import type { Cell, CellKey, CoarseGrid, Element, StateChanges, StormProposal, TempestSceneState } from '../../types';
 import { nudgeElement, planAdvance } from './plan';
 import { pick } from './rng';
 import { catchZones, postZoneCards, type ZoneCatch } from './zone-damage';
@@ -52,7 +52,8 @@ export function previewZones(scene: Scene, proposal: StormProposal): ZoneCatch[]
 export async function commitAdvance(scene: Scene, proposal: StormProposal): Promise<ZoneCatch[]> {
   // Caught before the write, against the state the elements are leaving.
   const zones = catchZones(scene, readState(scene), proposal);
-  const changes: StateChanges = { 'storm.seed': proposal.seed, 'storm.round': proposal.round };
+  // The rolled sector belongs to the round being resolved, so committing retires it.
+  const changes: StateChanges = { 'storm.seed': proposal.seed, 'storm.round': proposal.round, 'storm.rolledCell': null };
 
   if (proposal.lightning) changes['storm.lightning.strikes'] = proposal.lightning.strikes;
   if (proposal.wind) {
@@ -74,12 +75,34 @@ export async function commitAdvance(scene: Scene, proposal: StormProposal): Prom
 }
 
 /** Uniform pick over the painted cells, for the doc's random-sector roll. */
-export function rollRandomCell(scene: Scene): string | null {
+export function rollRandomCell(scene: Scene): CellKey | null {
   const state = readState(scene);
   const cells = painted(scene, state);
   if (cells.length === 0) return null;
   // A GM convenience roll, not part of the replayable storm sequence — hence the ambient RNG.
   return cellKey(pick(Math.random, cells));
+}
+
+/**
+ * Rolls a sector and publishes it. It goes in the scene flag rather than staying on the GM's
+ * client so `updateScene` fans the highlight out to every player; one roll is one `scene.update()`.
+ */
+export async function rollSector(scene: Scene): Promise<CellKey | null> {
+  const cell = rollRandomCell(scene);
+  if (cell !== null) await setRolledCell(scene, cell);
+  return cell;
+}
+
+/** Publishes or clears the rolled sector, skipping the write when nothing would change. */
+export async function setRolledCell(scene: Scene, cell: CellKey | null): Promise<void> {
+  if (!game.user.isGM) return;
+  if (readState(scene).storm.rolledCell === cell) return;
+  await writeState(scene, { 'storm.rolledCell': cell });
+}
+
+/** The coarse lattice a scene's stored state is keyed against. */
+export function sceneGrid(scene: Scene, state: TempestSceneState): CoarseGrid {
+  return coarseGrid(sceneRect(scene), state.cellSquares);
 }
 
 /**
@@ -106,7 +129,7 @@ export function onActorUpdate(actor: Actor, changed: Record<string, unknown>): v
 }
 
 function painted(scene: Scene, state: TempestSceneState): Cell[] {
-  return paintedCells(state.cells, coarseGrid(sceneRect(scene), state.cellSquares));
+  return paintedCells(state.cells, sceneGrid(scene, state));
 }
 
 /** `Scene#width`/`height` are nullable and include padding; the prepared dimensions are neither. */

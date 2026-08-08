@@ -1,16 +1,19 @@
-import { ELEMENTS, FLAG_ELEMENT_KEY, FLAG_SCOPE, HOOKS, LANDMARKS, MODULE_ID } from '../../constants';
+import { ELEMENTS, FLAG_ELEMENT_KEY, FLAG_SCOPE, HOOKS, LANDMARKS, MODULE_ID, ROLLED_PAN_MS } from '../../constants';
+import { cellCenter, parseCellKey } from '../../services/grid';
 import {
   commitAdvance,
   nudgeProposal,
   previewZones,
   proposeAdvance,
   readState,
-  rollRandomCell,
+  rollSector,
+  sceneGrid,
+  setRolledCell,
   writeState,
 } from '../../services/storm/controller';
 import { catchCounts, postZoneCards, type ZoneCatch } from '../../services/storm/zone-damage';
 import { armTemplate, cancelTemplate, type ArmedTemplate, type TemplateKind } from '../../services/templates';
-import type { Element, StormProposal, TempestSceneState } from '../../types';
+import type { CellKey, Element, StormProposal, TempestSceneState } from '../../types';
 import { countCells, landmarkRows, positionOf, proposedPositionOf, type ElementRow } from './rows';
 
 const noneDown = (): Record<Element, boolean> => ({ lightning: false, wind: false, water: false });
@@ -33,7 +36,6 @@ class TempestConsoleState {
   /** Ephemeral and GM-client-only: players see nothing until `commit`. */
   proposal = $state.raw<StormProposal | null>(null);
   down = $state(noneDown());
-  rolled = $state.raw<string | null>(null);
   armed = $state.raw<ArmedTemplate | null>(null);
   busy = $state(false);
   /** What the ghost would catch. Preview only — it rolls nothing. */
@@ -46,6 +48,8 @@ class TempestConsoleState {
   counts = $derived(countCells(this.committed));
   landmarks = $derived(landmarkRows(this.committed));
   round = $derived(this.proposal?.round ?? this.committed?.storm.round ?? 0);
+  /** Derived from committed state, so every change to it necessarily went through `writeState`. */
+  rolled: CellKey | null = $derived(this.committed?.storm.rolledCell ?? null);
   cellSquares = $derived(this.committed?.cellSquares ?? 0);
   cellFeet = $derived(this.cellSquares * (this.scene?.grid.distance ?? 5));
 
@@ -165,14 +169,44 @@ class TempestConsoleState {
     }
   }
 
-  rollRandom(): void {
+  async rollRandom(): Promise<void> {
+    const scene = this.requireScene();
+    if (!scene || this.busy) return;
+    this.busy = true;
+    try {
+      const rolled = await rollSector(scene);
+      if (rolled === null) ui.notifications.warn(localize('notifications.noPaintedCells'));
+      else this.focus(rolled);
+    } catch (error) {
+      this.report(error);
+    } finally {
+      this.busy = false;
+    }
+  }
+
+  async clearRolled(): Promise<void> {
     const scene = this.requireScene();
     if (!scene) return;
-    // `undefined` means the call itself failed; `null` means the scene has no painted cells.
-    const rolled = this.guard<string | null | undefined>(() => rollRandomCell(scene), undefined);
-    if (rolled === undefined) return;
-    this.rolled = rolled;
-    if (rolled === null) ui.notifications.warn(localize('notifications.noPaintedCells'));
+    try {
+      await setRolledCell(scene, null);
+    } catch (error) {
+      this.report(error);
+    }
+  }
+
+  /**
+   * Pans the GM's own camera to the sector and pings it for everyone else. `pull` is forced off
+   * so a held SHIFT cannot drag every player's viewport along with it.
+   */
+  private focus(cell: CellKey): void {
+    const scene = this.scene;
+    const state = this.committed;
+    if (!scene || !state) return;
+    const center = cellCenter(parseCellKey(cell), sceneGrid(scene, state));
+    void canvas.animatePan({ x: center.x, y: center.y, duration: ROLLED_PAN_MS });
+    // `style` and `pull` are read by Canvas#ping but missing from its typed options.
+    const options = { style: CONFIG.Canvas.pings.types.ALERT, pull: false } as Parameters<typeof canvas.ping>[1];
+    void canvas.ping(center, options);
   }
 
   recordHit(id: string, delta: number): void {
