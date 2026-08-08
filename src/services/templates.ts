@@ -1,5 +1,5 @@
 import { MODULE_ID, TEMPLATES } from '../constants';
-import type { Point } from '../types';
+import type { Point, Rect } from '../types';
 
 /**
  * PF2e measured templates for the hazard's three routines. Placed, never resolved: no saves, no
@@ -49,6 +49,54 @@ export function templateData(kind: TemplateKind, origin: Point, aim?: Point): Te
   };
   if ('angle' in spec) data.angle = spec.angle;
   return data;
+}
+
+/** Pixel-to-distance conversion for the scene a cell belongs to. */
+export interface CellScale {
+  /** `scene.grid.distance / scene.dimensions.size` — feet per pixel, never assumed to be 5/33. */
+  feetPerPixel: number;
+  /** Fine grid square in pixels. Template anchors snap to its lattice, as PF2e bursts expect. */
+  squarePx: number;
+}
+
+/**
+ * A template scaled to fill one district cell rather than to its printed area — the deliberate
+ * deviation the hazard turn makes so the whole struck district is visible. Everything derives from
+ * the cell's own clipped rect, so an edge cell gets a smaller template rather than one hanging off
+ * the map. The card the hazard turn posts still quotes the rule's real area.
+ */
+export function cellTemplateData(kind: TemplateKind, rect: Rect, scale: CellScale): TemplateData {
+  const spec = TEMPLATES[kind];
+  const feet = (px: number): number => Math.round(px * scale.feetPerPixel);
+  const snap = (value: number): number => Math.round(value / scale.squarePx) * scale.squarePx;
+
+  if (spec.t === 'cone') {
+    // Cones open 45° either side, so one that just reaches the far edge is already wider than the
+    // district there. Crossing the longer axis leaves the least of a clipped strip uncovered.
+    const across = rect.width >= rect.height;
+    return {
+      t: spec.t,
+      x: across ? rect.x : snap(rect.x + rect.width / 2),
+      y: across ? snap(rect.y + rect.height / 2) : rect.y,
+      distance: feet(across ? rect.width : rect.height),
+      direction: across ? 0 : 90,
+      angle: spec.angle,
+      flags: { pf2e: { areaShape: spec.areaShape } },
+    };
+  }
+
+  return {
+    t: spec.t,
+    x: snap(rect.x + rect.width / 2),
+    y: snap(rect.y + rect.height / 2),
+    distance: feet(Math.max(rect.width, rect.height) / 2),
+    direction: 0,
+    flags: { pf2e: { areaShape: spec.areaShape } },
+  };
+}
+
+export async function placeTemplate(scene: Scene, data: TemplateData): Promise<void> {
+  await scene.createEmbeddedDocuments('MeasuredTemplate', [data as unknown as Record<string, unknown>]);
 }
 
 let session: { dispose: () => void } | null = null;
@@ -141,7 +189,6 @@ function snapPoint(point: Point): Point {
 async function place(kind: TemplateKind, origin: Point, aim?: Point): Promise<void> {
   const scene = canvas.scene;
   if (!scene) return;
-  const data = templateData(kind, origin, aim) as unknown as Record<string, unknown>;
-  await scene.createEmbeddedDocuments('MeasuredTemplate', [data]);
+  await placeTemplate(scene, templateData(kind, origin, aim));
   ui.notifications.info(game.i18n.localize(`${MODULE_ID}.notifications.templatePlaced`));
 }

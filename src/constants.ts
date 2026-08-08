@@ -133,6 +133,20 @@ export const TEMPLATES = {
 } as const;
 
 /**
+ * Section 3's routine table, indexed by `1d3 - 1`. The doc names the first anchor "Thunder
+ * Tempest"; this module renamed it Vortex Tempest, so the mapping is to elements, not to names.
+ */
+export const ROUTINE_DIE = '1d3';
+export const ROUTINE_ANCHORS = ['wind', 'lightning', 'water'] as const;
+
+/** The measured template each anchor's routine draws. */
+export const ROUTINE_TEMPLATES = {
+  wind: 'thunderclap',
+  lightning: 'queensLightning',
+  water: 'rendingDeluge',
+} as const;
+
+/**
  * The zone card's mechanics, as PF2e enrichers. The shapes are copied verbatim from the hazard
  * actor's own routine text (`packs/_source/actors/queens-tempest.json`), so a click on the card
  * rolls exactly what a click on the stat block rolls. The module posts these links and stops:

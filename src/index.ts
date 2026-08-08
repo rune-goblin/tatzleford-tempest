@@ -3,6 +3,7 @@ import { openJournalOnImport, promptAdventureImport } from './adventure';
 import { GM_GUIDE_ID, MODULE_ID } from './constants';
 import { registerLayer, toggleLayer } from './layer/register';
 import { commitAdvance, onActorUpdate, onSceneUpdate, proposeAdvance } from './services/storm/controller';
+import { runHazardTurn } from './services/storm/hazard-turn';
 import { registerSettings } from './settings';
 import type { ModuleApi } from './types';
 import { registerConsoleApi } from './ui/console/register';
@@ -18,16 +19,22 @@ Hooks.once('ready', () => {
   const version = module?.version ?? '0.0.0';
 
   // `openConsole` is absent until registerConsoleApi attaches it — the console owns that seam.
+  const activeScene = (): Scene | null => {
+    if (canvas.scene) return canvas.scene;
+    ui.notifications.warn(game.i18n.localize(`${MODULE_ID}.notifications.noScene`));
+    return null;
+  };
+
   const api = {
     version,
     toggleLayer,
     advanceStorm: async () => {
-      const scene = canvas.scene;
-      if (!scene) {
-        ui.notifications.warn(game.i18n.localize(`${MODULE_ID}.notifications.noScene`));
-        return;
-      }
-      await commitAdvance(scene, proposeAdvance(scene));
+      const scene = activeScene();
+      if (scene) await commitAdvance(scene, proposeAdvance(scene));
+    },
+    hazardTurn: async () => {
+      const scene = activeScene();
+      if (scene) await runHazardTurn(scene);
     },
   } as ModuleApi;
   registerConsoleApi(api);

@@ -41,15 +41,18 @@
     "element": {
       "lightning": {
         "name": "Lightning",
-        "routine": "Queen's Lightning"
+        "routine": "Queen's Lightning",
+        "anchor": "Lightning Tempest"
       },
       "wind": {
         "name": "Wind",
-        "routine": "Thunderclap"
+        "routine": "Thunderclap",
+        "anchor": "Vortex Tempest"
       },
       "water": {
         "name": "Water",
-        "routine": "Rending Deluge"
+        "routine": "Rending Deluge",
+        "anchor": "Deluge Tempest"
       }
     },
     "direction": {
@@ -77,6 +80,8 @@
       },
       "storm": {
         "heading": "Advance the Storm",
+        "hazardTurn": "Take the Hazard Turn",
+        "hazardTurnHint": "Rolls 1d3 for the anchor, rolls a random sector, fills it with the matching template, and whispers you one card. A destroyed anchor falters and nothing is placed.",
         "propose": "Propose",
         "reroll": "Reroll",
         "nudge": "Nudge {direction}",
@@ -117,6 +122,30 @@
         "removeHit": "Undo a hit",
         "ruined": "Ruined",
         "reset": "Reset Tracker"
+      }
+    },
+    "hazard": {
+      "card": {
+        "flavor": "Hazard Routine",
+        "sector": "Sector",
+        "scaled": "The template is scaled to fill the district. The area above is the rule's — resolve the effect against it.",
+        "collateral": "Place the sector's collateral marker and name what is about to be lost. It resolves at the start of the hazard's next turn unless the heroes prevent it.",
+        "falters": "{anchor} is destroyed. The clouds strain toward {routine} and falter — the storm takes no action this round.",
+        "noReroll": "Do not reroll."
+      },
+      "effect": {
+        "lightning": {
+          "areaLabel": "Target",
+          "area": "1 creature in the selected sector"
+        },
+        "wind": {
+          "areaLabel": "Area",
+          "area": "60-foot burst within the selected sector"
+        },
+        "water": {
+          "areaLabel": "Area",
+          "area": "30-foot cone originating from an edge or prominent watercourse in the selected sector"
+        }
       }
     },
     "zone": {
@@ -179,6 +208,8 @@
       "gmOnly": "Only the GM can change the storm.",
       "noPaintedCells": "Paint the town's districts before advancing the storm.",
       "committed": "Storm advanced to round {round}.",
+      "hazardTurn": "{routine} in cell {cell}.",
+      "hazardFaltered": "{anchor} is destroyed — the storm takes no action this round.",
       "templatePlaced": "Template placed.",
       "templateCancelled": "Template placement cancelled."
     }

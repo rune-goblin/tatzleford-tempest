@@ -11,6 +11,7 @@ import {
   setRolledCell,
   writeState,
 } from '../../services/storm/controller';
+import { runHazardTurn } from '../../services/storm/hazard-turn';
 import { catchCounts, postZoneCards, type ZoneCatch } from '../../services/storm/zone-damage';
 import { armTemplate, cancelTemplate, type ArmedTemplate, type TemplateKind } from '../../services/templates';
 import type { CellKey, Element, StormProposal, TempestSceneState } from '../../types';
@@ -113,6 +114,21 @@ class TempestConsoleState {
 
   setDestroyed(element: Element, destroyed: boolean): void {
     void this.write({ [`storm.${element}.destroyed`]: destroyed });
+  }
+
+  /** The round's one button. Everything it persists goes through the controller's own writes. */
+  async hazardTurn(): Promise<void> {
+    const scene = this.requireScene();
+    if (!scene || this.busy) return;
+    this.busy = true;
+    try {
+      const turn = await runHazardTurn(scene);
+      if (turn?.cell) this.focus(turn.cell);
+    } catch (error) {
+      this.report(error);
+    } finally {
+      this.busy = false;
+    }
   }
 
   propose(): void {

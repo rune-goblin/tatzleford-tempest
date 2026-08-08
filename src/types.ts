@@ -136,4 +136,6 @@ export interface ModuleApi {
   toggleLayer: () => void;
   /** Proposes an advance for every surviving element and commits it immediately. */
   advanceStorm: () => Promise<void>;
+  /** The whole hazard turn: 1d3 anchor, random sector, template, card. The pack macro calls this. */
+  hazardTurn: () => Promise<void>;
 }

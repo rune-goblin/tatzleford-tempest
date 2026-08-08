@@ -7,6 +7,16 @@
 <section>
   <h3>{t('console.storm.heading')}</h3>
 
+  <button
+    type="button"
+    class="hazard-turn"
+    onclick={() => void consoleState.hazardTurn()}
+    disabled={consoleState.busy}
+  >
+    {t('console.storm.hazardTurn')}
+  </button>
+  <p class="hint">{t('console.storm.hazardTurnHint')}</p>
+
   <div class="row">
     <button type="button" onclick={() => consoleState.propose()} disabled={consoleState.busy}>
       {t('console.storm.propose')}
@@ -58,6 +68,14 @@
   .row {
     display: flex;
     gap: 0.35rem;
+  }
+  .hazard-turn {
+    width: 100%;
+    font-weight: bold;
+    border-color: var(--tatzleford-tempest-accent, #6b21a8);
+  }
+  .hazard-turn + .hint {
+    margin-bottom: 0.5rem;
   }
   .element-controls {
     display: flex;
