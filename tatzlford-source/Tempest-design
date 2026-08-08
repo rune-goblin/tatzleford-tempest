@@ -1,0 +1,262 @@
+# The Queen's Tempest
+
+*Custom Pathfinder Second Edition encounter for a settlement-scale battle*
+
+The Queen's Tempest is a supernatural storm anchored by three level 13 manifestations: the Thunder Tempest, Lightning Tempest, and Deluge Tempest. The encounter takes place on a single settlement map. The creatures are the enemies the heroes can fight; the level 16 complex hazard represents the storm raging around them and damaging the settlement.
+
+The encounter is intended for a level 15 party. It combines three level 13 creatures with a deliberately weakened level 16 hazard. Because the settlement objectives can consume actions and split the party, the GM should treat the complete encounter as more dangerous than the creature XP alone suggests.
+
+---
+
+## Queen's Tempest — Hazard 16
+
+**Unique** **Complex** **Environmental** **Magical** **Primal**
+
+**Stealth** +0 (the storm is obvious)
+
+**Description** A supernatural storm engulfs the settlement. Three Tempests anchor its thunder, lightning, and flood-wind aspects. Each manifestation that the heroes destroy permanently weakens the storm.
+
+**Disable** The Queen's Tempest cannot be disabled directly while any Tempest survives. Destroying all three Tempests ends the hazard immediately. Individual collateral events can be prevented with **Storm Intervention**, below.
+
+**Routine** (1 action) At the beginning of the hazard's turn, roll 1d3 and consult the Tempest Routine table. Also roll randomly for a settlement sector.
+
+| 1d3 | Anchor | Effect |
+|---:|---|---|
+| 1 | Thunder Tempest | Thunderclap |
+| 2 | Lightning Tempest | Queen's Lightning |
+| 3 | Deluge Tempest | Rending Deluge |
+
+If the corresponding Tempest has been destroyed, the storm takes no action that round. Describe the clouds attempting to produce the effect before that part of the storm falters. Do not reroll.
+
+If the corresponding Tempest survives, resolve its effect in the randomly selected sector and place a matching collateral marker there. The effect applies only to creatures in its listed area. The collateral event resolves at the beginning of the hazard's next turn unless the heroes prevent it. A pending event is also canceled if its corresponding Tempest is destroyed before it resolves.
+
+As the heroes defeat the manifestations, the chance that the storm produces a major effect naturally falls:
+
+
+### Storm Intervention
+
+A creature able to affect a threatened sector can spend 2 actions to attempt a **DC 35** check using an appropriate skill. Possible approaches include: 
+**DC 33 or DC37** if the approach is particulary suitable or difficult.
+
+- **Arcana** or **Nature** to disrupt the supernatural weather.
+- **Athletics** to brace a structure, clear debris, or divert water.
+- **Acrobatics** to cross a collapsing area or make a dangerous rescue.
+- **Crafting** to reinforce or repair a threatened structure.
+- **Survival** to predict and redirect wind or floodwater.
+- An appropriate spell, class feature, item, or other credible solution, usually accompanied by a relevant check.
+
+The character does not need to stand in the sector if their method can plausibly affect it at range.
+
+**Critical Success** The collateral event is prevented, and the intervention creates an additional advantage. The GM can grant the party 1 Hero Point, give the corresponding Tempest a –1 circumstance penalty to AC until the end of its next turn, or award a similarly useful benefit.
+
+**Success** The collateral event is prevented.
+
+**Failure** The collateral event resolves normally.
+
+**Critical Failure** The collateral event resolves, and the intervening creature suffers the rolled hazard effect as though it were in the affected area. If it was already affected, use the worse result rather than applying the damage twice.
+
+### 1 — Thunderclap
+
+**Area** 60-foot burst within the selected sector  
+**Saving Throw** DC 38 Fortitude
+
+The storm releases a concussive peal. Each creature in the area attempts the save.
+
+- **Critical Success** No effect.
+- **Success** Half damage.
+- **Failure** 8d10 sonic damage; the creature is deafened for 1 round and pushed 10 feet away from the burst's center.
+- **Critical Failure** Double damage; the creature is deafened for 1 minute, pushed 20 feet, and knocked prone.
+
+**Collateral** The concussion shatters windows, bursts doors, and collapses roofs and masonry. If it resolves, the targeted sector or landmark takes 1 damage hit.
+
+### 2 — Queen's Lightning
+
+**Target** 1 creature in the selected sector  
+**Saving Throw** DC 38 Reflex
+
+Blue-white lightning grounds through the sector. If no creature is present, the bolt strikes a prominent structure and only the collateral event is created.
+
+- **Critical Success** No damage.
+- **Success** Half damage.
+- **Failure** 10d8 electricity damage.
+- **Critical Failure** Double damage and 2d6 persistent electricity damage.
+
+**Collateral** Lightning strikes a structure, tree, tower, or other prominent object and ignites supernatural fire despite the rain. If it resolves, the targeted sector or landmark takes 1 damage hit.
+
+### 3 — Rending Deluge
+
+**Area** 30-foot cone originating from an edge or prominent watercourse in the selected sector  
+**Saving Throw** DC 38 Reflex
+
+A wall of rain, floodwater, and debris tears through the area.
+
+- **Critical Success** No damage.
+- **Success** Half damage.
+- **Failure** 6d10 bludgeoning damage and the creature is pushed 20 feet away from the cone's origin.
+- **Critical Failure** Double damage; the creature is hurled 30 feet away from the cone's origin and knocked prone.
+
+**Collateral** Floodwater uproots trees, strips roofs, and sweeps away carts and walls. If it resolves, the targeted sector or landmark takes 1 damage hit.
+
+---
+
+## Tempest Manifestations
+
+The three Tempests use the following shared chassis. Any statistic replaced in a specific stat block takes precedence.
+
+### Shared Chassis — Creature 13
+
+**Unique** **Large** **Air** **Elemental** **Primal** **Water**
+
+**Perception** +25; darkvision  
+**Languages** —  
+**Skills** Athletics +27  
+**AC** 34; **Fort** +27, **Ref** +25, **Will** +22  
+**Immunities** bleed, disease, paralyzed, poison  
+**Resistances** physical 10 (except magical)  
+**Speed** fly 60 feet
+
+**Storm Form** A Tempest ignores difficult terrain. It can move through creatures' spaces but cannot end its movement in an occupied space.
+
+**Tempest's Demise** When a Tempest is destroyed, its corresponding result is permanently suppressed in the Queen's Tempest routine. Any unresolved collateral marker created by that result is removed. When the last Tempest is destroyed, the hazard ends immediately.
+
+### Thunder Tempest — Creature 13
+
+*The Roar; a dense storm giant whose body compresses and bursts with concussive thunder.*
+
+**HP** 245
+
+**Melee** [one-action] **storm hammer** +27 (magical, reach 15 feet, sonic), **Damage** 4d10+12 bludgeoning plus 2d8 sonic, and the target is pushed 10 feet
+
+**Thunder Pulse** [two-actions] (**primal**, **sonic**) The Thunder Tempest releases a blast in a 30-foot emanation. Each other creature in the area attempts a DC 35 Fortitude save, taking 8d8 sonic damage with a basic save. On a failure, the creature is also pushed 15 feet. On a critical failure, it is instead pushed 20 feet and knocked prone.
+
+**Draw the Sky** [two-actions] (**air**, **primal**) Each enemy within 40 feet attempts a DC 35 Fortitude save. On a failure, it is pulled 15 feet toward the Thunder Tempest. On a critical failure, it is pulled to the nearest open space adjacent to the Tempest. This movement does not trigger reactions.
+
+**Rolling Echo** [reaction] (**sonic**) **Trigger** A ranged attack damages the Thunder Tempest; **Effect** A concussive echo travels back along the attack's path. The triggering attacker takes 2d8 sonic damage (DC 35 basic Fortitude save).
+
+### Lightning Tempest — Creature 13
+
+*The Wrath; a dark, swift-moving cloud illuminated from within by branching lightning.*
+
+**HP** 205
+
+**Ranged** [one-action] **lightning lash** +27 (electricity, magical, range 120 feet), **Damage** 4d12 electricity
+
+**Forked Lightning** [two-actions] (**electricity**, **primal**) The Lightning Tempest chooses one creature within 120 feet, a second creature within 30 feet of the first, and a third creature within 30 feet of the second. A creature can be selected only once. The targets attempt DC 35 basic Reflex saves, taking 10d8, 8d8, and 6d8 electricity damage respectively.
+
+**Ride the Bolt** [one-action] (**electricity**, **primal**, **teleportation**) **Requirements** The Lightning Tempest dealt electricity damage to a creature since the end of its last turn; **Effect** The Tempest teleports up to 60 feet to an unoccupied space it can see.
+
+**Static Field** [two-actions] (**aura**, **electricity**, **primal**) The Lightning Tempest creates a 20-foot aura that lasts until the beginning of its next turn. An enemy that enters the aura or begins its turn there takes 2d6 electricity damage (DC 35 basic Reflex save). A creature can take this damage only once per round.
+
+**Arc Flash** [reaction] (**electricity**, **primal**) **Trigger** The Lightning Tempest is critically hit; **Effect** Each other creature adjacent to it takes 3d6 electricity damage (DC 35 basic Reflex save).
+
+### Deluge Tempest — Creature 13
+
+*The Flood; a walking column of black rain and churning water that turns streets into rivers.*
+
+**HP** 225
+
+**Melee** [one-action] **crushing wave** +27 (magical, reach 10 feet, water), **Damage** 4d10+10 bludgeoning, and the target is pushed 5 feet
+
+**Flash Flood** [two-actions] (**primal**, **water**) The Deluge Tempest releases water in a 60-foot line. Creatures in the line attempt a DC 35 Reflex save, taking 8d8 bludgeoning damage with a basic save. On a failure, a creature is also pushed 20 feet away from the Tempest. On a critical failure, it is instead pushed 30 feet and knocked prone.
+
+**Undertow** [two-actions] (**primal**, **water**) The Deluge Tempest creates a 20-foot burst within 60 feet. The burst is difficult terrain until the beginning of the Tempest's next turn. A creature that enters the area or begins its turn there must attempt a DC 35 Reflex save. On a failure, it is pulled 10 feet toward the center; on a critical failure, it is also knocked prone. A creature attempts this save only once per round.
+
+**Drown the Streets** [three-actions] (**primal**, **water**) The Deluge Tempest floods its current settlement sector until the beginning of its next turn. The ground is difficult terrain, and non-flying creatures in the sector treat it as uneven ground. This ability affects the battlefield but does not itself add a settlement damage hit.
+
+---
+
+## Settlement Damage
+
+### Define the Sectors
+
+Before play, divide the existing encounter map into a small number of numbered sectors. Six to twelve sectors usually provide enough geographic variety without making travel or tracking cumbersome. Each sector should be roughly one meaningful combat area and should have an obvious name, such as North Gate, East Homes, Riverside Farms, or Keep Approach.
+
+Create a random table with one entry for each sector. Whenever the Queen's Tempest produces an effect, roll for its sector rather than choosing the most dramatic or convenient target. Repeated results are allowed.
+
+The market does not require special durability; include it in an ordinary sector unless it has unusual importance in the campaign.
+
+### Damage States and Durability
+
+Every sector and special landmark has one of three visible states:
+
+- **Safe:** No significant storm damage.
+- **Damaged:** The area remains usable, but the storm has caused a serious setback. Add difficult or uneven terrain, blocked routes, hazards, lost shelter, or endangered civilians as appropriate.
+- **Destroyed:** The landmark is unusable or the neighborhood is devastated. Its loss should have a clear narrative consequence after the encounter.
+
+Each unresolved collateral event deals 1 damage hit to its target. The first hit changes a target from Safe to Damaged. When its accumulated hits equal its durability, it becomes Destroyed. Any hits between the first and the final hit worsen the fiction while the target remains Damaged.
+
+| Target | Durability | Suggested consequences |
+|---|---:|---|
+| Bridge | 2 hits | Damaged: difficult terrain and wagons cannot cross. Destroyed: the crossing is washed away and evacuation routes are cut. |
+| Keep Wall | 3 hits | Damaged: a partial breach and falling masonry. Destroyed: a major section collapses and the keep is exposed. |
+| Temple | 2 hits | Damaged: roof collapse or fire threatens its refugees. Destroyed: the sanctuary is lost. |
+| Mill | 2 hits | Damaged: machinery or the watercourse is compromised. Destroyed: the settlement loses a critical food resource. |
+| Ordinary sector | 3 hits | Damaged: several structures and routes are compromised. Destroyed: the neighborhood is devastated. |
+
+Track each target with a row of boxes. For example, the Keep Wall begins as `Keep Wall [ ] [ ] [ ]`. Mark a box each time it takes a hit.
+
+### Optional Immediate Map Effects
+
+When an area becomes Damaged or Destroyed, update the tactical map where practical. Add rubble, fire, floodwater, fallen trees, broken sight lines, or blocked streets. Keep these changes easy to adjudicate; their purpose is to make the town's condition visible, not to create a second layer of detailed structural rules.
+
+---
+
+## GM Guidance
+
+### Encounter Setup
+
+1. Overlay and number the settlement sectors.
+2. Place the three Tempests in tactically distinct areas suited to their roles.
+3. Prepare a 1dN sector table and damage tracks for ordinary sectors and special landmarks.
+4. Put obvious tokens or templates within reach for Thunder, Lightning, and Deluge collateral markers.
+5. Establish where civilians, escape routes, and post-encounter objectives are located.
+
+### Round Flow
+
+At the beginning of each hazard turn:
+
+1. Resolve each collateral marker placed on the previous hazard turn unless it was prevented or its Tempest was destroyed.
+2. Roll 1d3 for the Queen's Tempest.
+3. If the matching Tempest is dead, describe that aspect of the storm failing and end the routine.
+4. If it survives, roll a random settlement sector.
+5. Resolve the hazard's creature-facing effect in that sector.
+6. Place the matching collateral marker and describe the specific structure, route, or group of civilians in danger.
+
+The Tempests then act as normal creatures on their initiative. The hazard and creatures should have separate initiative entries.
+
+### Moving Across the Map
+
+Keep the encounter on one map and use its existing scale whenever possible. If the settlement is too large for ordinary encounter movement to keep interventions viable, use a two-scale abstraction: a creature can spend 2 actions to rush to an adjacent sector. This represents sprinting through alleys, flying over rooftops, or cutting through buildings. Particularly fast movement, teleportation, and appropriate spells can reduce or bypass this cost at the GM's discretion.
+
+### Running the Tempests
+
+- **Thunder Tempest:** Occupies central streets and chokepoints, pulls enemies close, and punishes ranged attackers. It prefers tall or sturdy structures such as the keep and watchtowers.
+- **Lightning Tempest:** Keeps its distance, punishes clustered heroes, and relocates after attacking. It gravitates toward towers, metal, and concentrations of creatures.
+- **Deluge Tempest:** Controls streets and bridges, separates the party, and makes movement costly. It favors the river, bridge, farms, and low ground.
+
+These preferences guide movement only. The Queen's Tempest always selects collateral sectors randomly.
+
+### Presenting the Disaster
+
+Name what is about to be lost. “The bridge is going” creates a stronger decision than “Sector 4 takes a hit.” Tie every marker to a visible detail: a buckling roof, lightning crawling down a steeple, floodwater overtopping a quay, or civilians trapped behind debris.
+
+Let creative interventions work when they fit the fiction. The DC and action cost create consistency, but the important choice is whether a hero spends time containing the disaster instead of attacking a Tempest.
+
+Avoid tracking individual buildings or structural Hit Points. The Safe/Damaged/Destroyed system is meant to show consequences with minimal bookkeeping.
+
+### Ending the Encounter
+
+When the last Tempest is destroyed, remove every pending collateral marker. The rain slackens, the clouds split apart, and the Queen's magic loses its final anchor. Review the damage tracks immediately after combat and describe the surviving routes, ruined landmarks, rescued civilians, and permanent scars. Those outcomes should matter in later scenes even if they do not impose additional combat penalties.
+
+---
+
+## Quick Reference
+
+- Hazard routine: roll **1d3**, then a **random sector**.
+- A dead Tempest's result does nothing; do not reroll.
+- A surviving result applies its hazard effect now and creates collateral for the next hazard turn.
+- Intervention costs **2 actions** and uses **DC 35**.
+- Destroying a Tempest cancels its pending collateral and suppresses its future hazard result.
+- Collateral deals **1 damage hit** if unresolved.
+- Durability: **Bridge 2, Keep Wall 3, Temple 2, Mill 2, ordinary sector 3**.
+- States: **Safe → Damaged → Destroyed**.
