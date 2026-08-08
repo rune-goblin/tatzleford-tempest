@@ -1,11 +1,12 @@
 import { ELEMENTS, FLAG_ELEMENT_KEY, FLAG_SCOPE, FLAG_STATE_KEY, HOOKS, STATE_PATH } from '../../constants';
 import { parseTempestState } from '../../data/TempestStateModel';
-import { getDefaultCellSquares } from '../../settings';
+import { getAutoZoneCards, getDefaultCellSquares } from '../../settings';
 import { cellKey, coarseGrid, paintedCells } from '../grid';
 import type { SceneLike } from '../grid';
 import type { Cell, Element, StateChanges, StormProposal, TempestSceneState } from '../../types';
 import { nudgeElement, planAdvance } from './plan';
 import { pick } from './rng';
+import { catchZones, postZoneCards, type ZoneCatch } from './zone-damage';
 
 /**
  * The only module that touches documents. Planners stay pure; the layer and the console read and
@@ -38,8 +39,19 @@ export function nudgeProposal(proposal: StormProposal, element: Element, di: num
   return nudgeElement(proposal, element, di, dj);
 }
 
-/** Writes the proposal — the point at which the map changes for players. */
-export async function commitAdvance(scene: Scene, proposal: StormProposal): Promise<void> {
+/** What the ghost would sweep over if committed now. Rolls nothing and writes nothing. */
+export function previewZones(scene: Scene, proposal: StormProposal): ZoneCatch[] {
+  return catchZones(scene, readState(scene), proposal);
+}
+
+/**
+ * Writes the proposal — the point at which the map changes for players — then resolves the zone
+ * sweep against the cells each element newly occupies. Returns the zones it did *not* post,
+ * because `autoZoneCards` is off and the GM will post them from the console instead.
+ */
+export async function commitAdvance(scene: Scene, proposal: StormProposal): Promise<ZoneCatch[]> {
+  // Caught before the write, against the state the elements are leaving.
+  const zones = catchZones(scene, readState(scene), proposal);
   const changes: StateChanges = { 'storm.seed': proposal.seed, 'storm.round': proposal.round };
 
   if (proposal.lightning) changes['storm.lightning.strikes'] = proposal.lightning.strikes;
@@ -55,6 +67,10 @@ export async function commitAdvance(scene: Scene, proposal: StormProposal): Prom
 
   // `destroyed` stays out of the write: the GM owns those toggles and a commit must not clobber one.
   await writeState(scene, changes);
+
+  if (!getAutoZoneCards()) return zones;
+  await postZoneCards(zones);
+  return [];
 }
 
 /** Uniform pick over the painted cells, for the doc's random-sector roll. */

@@ -24,11 +24,21 @@
     </button>
   </div>
 
+  {#if consoleState.pendingZones.length > 0}
+    <div class="row pending">
+      <span class="hint">{t('console.storm.pendingZones', { count: consoleState.pendingCount })}</span>
+      <button type="button" onclick={() => void consoleState.resolveZones()} disabled={consoleState.busy}>
+        {t('console.storm.resolveZones')}
+      </button>
+    </div>
+  {/if}
+
   {#if consoleState.proposal}
     <p class="hint">{t('console.storm.proposalHint')}</p>
     {#each consoleState.elements as row (row.element)}
       <div class="element-controls">
         <span class="name">{t(`element.${row.element}.name`)}</span>
+        <span class="caught">{t('console.storm.caught', { count: consoleState.caught[row.element] })}</span>
         {#if row.destroyed}
           <span class="no-advance">{t('console.storm.noAdvance')}</span>
         {:else}
@@ -57,6 +67,16 @@
   }
   .name {
     flex: 1;
+  }
+  .caught {
+    font-size: 0.85em;
+    opacity: 0.8;
+    white-space: nowrap;
+  }
+  .pending {
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.4rem;
   }
   .no-advance {
     font-size: 0.85em;

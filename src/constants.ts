@@ -29,6 +29,8 @@ export const SETTINGS = {
   playerVisible: 'playerVisible',
   landmarkLabels: 'landmarkLabels',
   overlayOpacity: 'overlayOpacity',
+  autoZoneCards: 'autoZoneCards',
+  zoneHiddenTokens: 'zoneHiddenTokens',
 } as const;
 
 /**
@@ -49,6 +51,8 @@ export const MAX_CELL_SQUARES = 24;
 export const DEFAULT_PLAYER_VISIBLE = true;
 export const DEFAULT_LANDMARK_LABELS = true;
 export const DEFAULT_OVERLAY_OPACITY = 0.6;
+export const DEFAULT_AUTO_ZONE_CARDS = true;
+export const DEFAULT_ZONE_HIDDEN_TOKENS = false;
 
 export const CELL_STATES = { safe: 0, damaged: 1, destroyed: 2 } as const;
 
@@ -82,6 +86,51 @@ export const TEMPLATES = {
   rendingDeluge: { t: 'cone', distance: 30, angle: 90, areaShape: 'cone' },
   queensLightning: { t: 'circle', distance: 5, areaShape: 'burst' },
 } as const;
+
+/**
+ * The zone card's mechanics, as PF2e enrichers. The shapes are copied verbatim from the hazard
+ * actor's own routine text (`packs/_source/actors/queens-tempest.json`), so a click on the card
+ * rolls exactly what a click on the stat block rolls. The module posts these links and stops:
+ * it never rolls the save, never computes the damage, and never writes a token's HP.
+ */
+export const ZONE_SAVE_DC = 38;
+
+/** The `options:` list the hazard's own enrichers carry, passed to each save as roll options. */
+export const ZONE_ROLL_OPTIONS = ['area-effect', 'damaging-effect'] as const;
+
+export const ZONE_EFFECTS = {
+  lightning: {
+    save: 'reflex',
+    check: '@Check[reflex|dc:38|options:area-effect,damaging-effect]',
+    damage: '@Damage[10d8[electricity]|options:area-damage]',
+    persistent: '@Damage[2d6[persistent,electricity]]',
+  },
+  wind: {
+    save: 'fortitude',
+    check: '@Check[fortitude|dc:38|options:area-effect,damaging-effect]',
+    damage: '@Damage[8d10[sonic]|options:area-damage]',
+    persistent: '',
+  },
+  water: {
+    save: 'reflex',
+    check: '@Check[reflex|dc:38|options:area-effect,damaging-effect]',
+    damage: '@Damage[6d10[bludgeoning]|options:area-damage]',
+    persistent: '',
+  },
+} as const;
+
+/**
+ * Basic-save damage by PF2e's degree-of-success index — 0 critical failure, 1 failure, 2 success,
+ * 3 critical success (`_pf2e-source/src/module/system/degree-of-success.ts`). Printed on the card
+ * for the GM to apply; the module multiplies nothing itself.
+ */
+export const DEGREE_MULTIPLIERS = [2, 1, 0.5, 0] as const;
+
+/** Camel-case degree keys in index order, matching the system's `DEGREE_OF_SUCCESS_STRINGS`. */
+export const DEGREE_KEYS = ['criticalFailure', 'failure', 'success', 'criticalSuccess'] as const;
+
+/** i18n suffixes for `DEGREE_MULTIPLIERS`, in the same index order. */
+export const MULTIPLIER_KEYS = ['double', 'full', 'half', 'none'] as const;
 
 /**
  * Pre-minted document ids shared by the actor pack and the scene pack, so token `actorId`s

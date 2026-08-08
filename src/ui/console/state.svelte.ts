@@ -2,11 +2,13 @@ import { ELEMENTS, FLAG_ELEMENT_KEY, FLAG_SCOPE, HOOKS, LANDMARKS, MODULE_ID } f
 import {
   commitAdvance,
   nudgeProposal,
+  previewZones,
   proposeAdvance,
   readState,
   rollRandomCell,
   writeState,
 } from '../../services/storm/controller';
+import { catchCounts, postZoneCards, type ZoneCatch } from '../../services/storm/zone-damage';
 import { armTemplate, cancelTemplate, type ArmedTemplate, type TemplateKind } from '../../services/templates';
 import type { Element, StormProposal, TempestSceneState } from '../../types';
 import { countCells, landmarkRows, positionOf, proposedPositionOf, type ElementRow } from './rows';
@@ -34,7 +36,13 @@ class TempestConsoleState {
   rolled = $state.raw<string | null>(null);
   armed = $state.raw<ArmedTemplate | null>(null);
   busy = $state(false);
+  /** What the ghost would catch. Preview only — it rolls nothing. */
+  zonePreview = $state.raw<ZoneCatch[]>([]);
+  /** Caught by the last commit but unposted, because auto-resolution is off. */
+  pendingZones = $state.raw<ZoneCatch[]>([]);
 
+  caught = $derived(catchCounts(this.zonePreview));
+  pendingCount = $derived(this.pendingZones.reduce((total, zone) => total + zone.tokens.length, 0));
   counts = $derived(countCells(this.committed));
   landmarks = $derived(landmarkRows(this.committed));
   round = $derived(this.proposal?.round ?? this.committed?.storm.round ?? 0);
@@ -132,9 +140,24 @@ class TempestConsoleState {
     if (!scene || !proposal) return;
     this.busy = true;
     try {
-      await commitAdvance(scene, proposal);
+      this.pendingZones = await commitAdvance(scene, proposal);
       this.setProposal(null);
       ui.notifications.info(game.i18n.format(`${MODULE_ID}.notifications.committed`, { round: proposal.round }));
+    } catch (error) {
+      this.report(error);
+    } finally {
+      this.busy = false;
+    }
+  }
+
+  /** Posts the cards a silent commit held back. The GM still applies every point of damage. */
+  async resolveZones(): Promise<void> {
+    if (this.pendingZones.length === 0) return;
+    const zones = this.pendingZones;
+    this.busy = true;
+    try {
+      await postZoneCards(zones);
+      this.pendingZones = [];
     } catch (error) {
       this.report(error);
     } finally {
@@ -183,6 +206,8 @@ class TempestConsoleState {
    */
   private setProposal(next: StormProposal | null): void {
     this.proposal = next;
+    const scene = this.scene;
+    this.zonePreview = next && scene ? this.guard(() => previewZones(scene, next), []) : [];
     Hooks.callAll(HOOKS.proposalChanged, next);
   }
 

@@ -1,8 +1,10 @@
 import {
+  DEFAULT_AUTO_ZONE_CARDS,
   DEFAULT_CELL_SQUARES,
   DEFAULT_LANDMARK_LABELS,
   DEFAULT_OVERLAY_OPACITY,
   DEFAULT_PLAYER_VISIBLE,
+  DEFAULT_ZONE_HIDDEN_TOKENS,
   HOOKS,
   MAX_CELL_SQUARES,
   MIN_CELL_SQUARES,
@@ -54,6 +56,26 @@ export function registerSettings(): void {
     onChange: () => announce(SETTINGS.landmarkLabels),
   });
 
+  game.settings.register(MODULE_ID, SETTINGS.autoZoneCards, {
+    name: `${MODULE_ID}.settings.autoZoneCards.name`,
+    hint: `${MODULE_ID}.settings.autoZoneCards.hint`,
+    scope: 'world',
+    config: true,
+    type: Boolean,
+    default: DEFAULT_AUTO_ZONE_CARDS,
+    onChange: () => announce(SETTINGS.autoZoneCards),
+  });
+
+  game.settings.register(MODULE_ID, SETTINGS.zoneHiddenTokens, {
+    name: `${MODULE_ID}.settings.zoneHiddenTokens.name`,
+    hint: `${MODULE_ID}.settings.zoneHiddenTokens.hint`,
+    scope: 'world',
+    config: true,
+    type: Boolean,
+    default: DEFAULT_ZONE_HIDDEN_TOKENS,
+    onChange: () => announce(SETTINGS.zoneHiddenTokens),
+  });
+
   game.settings.register(MODULE_ID, SETTINGS.overlayOpacity, {
     name: `${MODULE_ID}.settings.overlayOpacity.name`,
     hint: `${MODULE_ID}.settings.overlayOpacity.hint`,
@@ -76,6 +98,16 @@ export function getPlayerVisible(): boolean {
 
 export function getOverlayOpacity(): number {
   return game.settings.get(MODULE_ID, SETTINGS.overlayOpacity) as number;
+}
+
+/** With this off, a commit moves the zones silently and the console's manual button posts. */
+export function getAutoZoneCards(): boolean {
+  return game.settings.get(MODULE_ID, SETTINGS.autoZoneCards) as boolean;
+}
+
+/** Hidden tokens sit out the sweep unless the GM wants ambushers caught too. */
+export function getZoneHiddenTokens(): boolean {
+  return game.settings.get(MODULE_ID, SETTINGS.zoneHiddenTokens) as boolean;
 }
 
 /**

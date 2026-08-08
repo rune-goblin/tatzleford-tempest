@@ -16,6 +16,14 @@
       "landmarkLabels": {
         "name": "Show Landmark Labels",
         "hint": "Draw a small label on each landmark, visible to players, showing the hits it has taken. Independent of the storm overlay's player visibility."
+      },
+      "autoZoneCards": {
+        "name": "Post Zone Damage on Commit",
+        "hint": "When on, committing an advance whispers you one card per element for the creatures its zone swept over. When off, the commit is silent and the console's Post Zone Damage button sends the cards."
+      },
+      "zoneHiddenTokens": {
+        "name": "Sweep Hidden Tokens",
+        "hint": "When on, tokens you have hidden are caught by storm zones like any other. Tempest tokens are always exempt."
       }
     },
     "controls": {
@@ -76,7 +84,10 @@
         "discard": "Discard",
         "noAdvance": "Destroyed — no advance.",
         "proposalHint": "Proposed moves show as dashed ghosts on your canvas only. Players see nothing until you commit.",
-        "noProposal": "No proposal yet."
+        "noProposal": "No proposal yet.",
+        "caught": "{count} caught",
+        "pendingZones": "{count} creature(s) swept by the last commit.",
+        "resolveZones": "Post Zone Damage"
       },
       "templates": {
         "heading": "Place a Template",
@@ -104,6 +115,48 @@
         "removeHit": "Undo a hit",
         "ruined": "Ruined",
         "reset": "Reset Tracker"
+      }
+    },
+    "zone": {
+      "card": {
+        "speaker": "The Queen's Tempest",
+        "subtitle": "{element} zone, round {round}",
+        "save": "Saving Throw",
+        "damage": "Damage",
+        "basicSave": "Critical Success no damage; Success half damage; Failure full damage; Critical Failure double damage.",
+        "result": "{name} — save {total}: {degree}, {damage}",
+        "unrolled": "{name} — no saving throw to roll; use the link above.",
+        "target": "Round's target",
+        "failure": "Failure",
+        "critFailure": "Critical Failure",
+        "cells": "Cells swept: {cells}",
+        "riders": "Roll the damage above and apply it yourself. Pushes, prone, deafness, and persistent damage are yours to adjudicate — the module applies nothing."
+      },
+      "degree": {
+        "criticalFailure": "Critical Failure",
+        "failure": "Failure",
+        "success": "Success",
+        "criticalSuccess": "Critical Success"
+      },
+      "multiplier": {
+        "double": "double damage",
+        "full": "full damage",
+        "half": "half damage",
+        "none": "no damage"
+      },
+      "effect": {
+        "lightning": {
+          "failure": "Full damage.",
+          "critFailure": "Double damage and {persistent} damage."
+        },
+        "wind": {
+          "failure": "The creature is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round and pushed 10 feet away from the zone's center.",
+          "critFailure": "Double damage; the creature is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute, pushed 20 feet, and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]."
+        },
+        "water": {
+          "failure": "The creature is pushed 20 feet away from the flood's path.",
+          "critFailure": "Double damage; the creature is hurled 30 feet away from the flood's path and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]."
+        }
       }
     },
     "landmarks": {
