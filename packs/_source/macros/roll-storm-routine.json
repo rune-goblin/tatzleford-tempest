@@ -1,0 +1,15 @@
+{
+  "_id": "TempestMacroRotn",
+  "name": "Roll the Queen's Tempest Routine",
+  "type": "script",
+  "scope": "global",
+  "img": "icons/svg/d20-black.svg",
+  "command": "// Rolls the Queen's Tempest hazard routine (1d3) and whispers the result to the GMs.\n// A destroyed anchor produces nothing and is never rerolled, so the macro checks each\n// Tempest's HP first. The actor ids survive the Adventure import (keepId).\nconst ANCHORS = [\n  {\n    id: 'TempestVortxMTah',\n    name: 'Vortex Tempest',\n    effect: 'Thunderclap',\n    detail: '60-foot burst in the selected sector. DC 38 Fortitude, 8d10 sonic on a failure.',\n  },\n  {\n    id: 'TempestLghtnPWdk',\n    name: 'Lightning Tempest',\n    effect: \"Queen's Lightning\",\n    detail: '1 creature in the selected sector. DC 38 Reflex, 10d8 electricity on a failure.',\n  },\n  {\n    id: 'TempestDelugZgnu',\n    name: 'Deluge Tempest',\n    effect: 'Rending Deluge',\n    detail: '30-foot cone from an edge or watercourse. DC 38 Reflex, 6d10 bludgeoning on a failure.',\n  },\n];\n\nconst roll = await new Roll('1d3').evaluate();\nconst anchor = ANCHORS[roll.total - 1];\nconst actor = game.actors.get(anchor.id);\nconst destroyed = (actor?.system?.attributes?.hp?.value ?? 1) <= 0;\n\nconst body = destroyed\n  ? `<p><strong>${anchor.name}</strong> is destroyed. The clouds strain toward\n     ${anchor.effect} and falter &mdash; the storm takes no action this round.</p>\n     <p><em>Do not reroll.</em></p>`\n  : `<p><strong>${anchor.effect}</strong> &mdash; ${anchor.name}</p>\n     <p>${anchor.detail}</p>\n     <p>Roll a random painted cell, resolve the effect there, then place the collateral\n     marker and name what is about to be lost.</p>`;\n\nawait ChatMessage.create({\n  speaker: { alias: \"Queen's Tempest\" },\n  flavor: 'Hazard routine',\n  rolls: [roll],\n  content: (await roll.render()) + body,\n  whisper: game.users.filter((u) => u.isGM).map((u) => u.id),\n});\n",
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!macros!TempestMacroRotn"
+}

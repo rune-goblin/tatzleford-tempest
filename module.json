@@ -1,7 +1,7 @@
 {
   "id": "tatzleford-tempest",
-  "title": "tatzleford-tempest",
-  "description": "A Pathfinder 2e Foundry VTT module template: compendium content plus a scripted esmodule with a Svelte 5 UI mounted in ApplicationV2.",
+  "title": "The Queen's Tempest at Tatzlford",
+  "description": "A storm siege of Tatzlford for Pathfinder 2e: the scene, the three Tempests and the hazard that drives them, a GM guide, and a canvas overlay for painting the town's districts and steering the storm across them.",
   "version": "0.1.0",
   "license": "MIT",
   "authors": [
@@ -24,10 +24,11 @@
   ],
   "packs": [
     {
-      "name": "macros",
-      "label": "tatzleford-tempest Macros",
-      "path": "packs/macros",
-      "type": "Macro"
+      "name": "queens-tempest",
+      "label": "The Queen's Tempest at Tatzlford",
+      "path": "packs/queens-tempest",
+      "type": "Adventure",
+      "system": "pf2e"
     }
   ],
   "relationships": {

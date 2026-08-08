@@ -1,5 +1,131 @@
 {
   "tatzleford-tempest": {
-    "title": "tatzleford-tempest"
+    "settings": {
+      "defaultCellSquares": {
+        "name": "District Cell Size",
+        "hint": "Width of one district cell, in grid squares. 12 squares is 60 feet — one Thunderclap burst. A scene freezes its cell size the first time you paint it."
+      },
+      "playerVisible": {
+        "name": "Show Overlay to Players",
+        "hint": "When off, the district grid, damage markers, and storm positions are visible to the GM only."
+      },
+      "overlayOpacity": {
+        "name": "Overlay Opacity",
+        "hint": "How strongly the district overlay draws over the map on this client."
+      },
+      "landmarkLabels": {
+        "name": "Show Landmark Labels",
+        "hint": "Draw a small label on each landmark, visible to players, showing the hits it has taken. Independent of the storm overlay's player visibility."
+      }
+    },
+    "controls": {
+      "group": "Queen's Tempest",
+      "paint": {
+        "name": "Paint Districts"
+      },
+      "damage": {
+        "name": "Mark Damage"
+      },
+      "console": {
+        "name": "Storm Console"
+      }
+    },
+    "element": {
+      "lightning": {
+        "name": "Lightning",
+        "routine": "Queen's Lightning"
+      },
+      "wind": {
+        "name": "Wind",
+        "routine": "Thunderclap"
+      },
+      "water": {
+        "name": "Water",
+        "routine": "Rending Deluge"
+      }
+    },
+    "direction": {
+      "n": "North",
+      "ne": "Northeast",
+      "e": "East",
+      "se": "Southeast",
+      "s": "South",
+      "sw": "Southwest",
+      "w": "West",
+      "nw": "Northwest"
+    },
+    "console": {
+      "title": "Storm Console",
+      "round": "Round {round}",
+      "elements": {
+        "heading": "The Three Tempests",
+        "alive": "Active",
+        "destroyed": "Destroyed",
+        "markDestroyed": "Mark Destroyed",
+        "markActive": "Mark Active",
+        "downIndicator": "This Tempest is at 0 HP — mark it destroyed when the scene calls for it.",
+        "position": "Cell {cell}",
+        "noPosition": "Not yet placed"
+      },
+      "storm": {
+        "heading": "Advance the Storm",
+        "propose": "Propose",
+        "reroll": "Reroll",
+        "nudge": "Nudge {direction}",
+        "commit": "Commit",
+        "discard": "Discard",
+        "noAdvance": "Destroyed — no advance.",
+        "proposalHint": "Proposed moves show as dashed ghosts on your canvas only. Players see nothing until you commit.",
+        "noProposal": "No proposal yet."
+      },
+      "templates": {
+        "heading": "Place a Template",
+        "thunderclap": "Thunderclap (60-ft burst)",
+        "rendingDeluge": "Rending Deluge (30-ft cone)",
+        "queensLightning": "Queen's Lightning (strike marker)",
+        "armed": "Click the map to place the template.",
+        "aim": "Click again to aim the cone.",
+        "cancel": "Cancel"
+      },
+      "cells": {
+        "heading": "Districts",
+        "painted": "{count} painted",
+        "damaged": "{count} damaged",
+        "destroyed": "{count} destroyed",
+        "rollRandom": "Roll a Random Sector",
+        "rolled": "Random sector: cell {cell}",
+        "cellSquares": "Cell size: {squares} squares ({feet} ft)",
+        "cellSquaresFrozen": "This scene's cell size is fixed at {squares} squares. Erase every painted cell to change it."
+      },
+      "landmarks": {
+        "heading": "Landmarks",
+        "hits": "{hits} of {durability}",
+        "addHit": "Record a hit",
+        "removeHit": "Undo a hit",
+        "ruined": "Ruined",
+        "reset": "Reset Tracker"
+      }
+    },
+    "landmarks": {
+      "skunk-river-bridge": "Skunk River Bridge",
+      "tatzlford-fort": "Tatzlford Fort and Town Hall",
+      "ables-inn": "Able's Inn",
+      "gnoris-gems": "Gnori's Gems",
+      "ironhand-smithy": "Ironhand Smithy",
+      "river-run-alehouse": "River Run Alehouse",
+      "general-store": "Tatzlford General Store",
+      "tatzlford-library": "Tatzlford Library",
+      "tatzlford-lodge": "Tatzlford Lodge",
+      "tatzlwyrm-tavern": "Tatzlwyrm Tavern",
+      "thrillseekers": "Thrillseekers"
+    },
+    "notifications": {
+      "noScene": "No active scene — open the Tatzlford map first.",
+      "gmOnly": "Only the GM can change the storm.",
+      "noPaintedCells": "Paint the town's districts before advancing the storm.",
+      "committed": "Storm advanced to round {round}.",
+      "templatePlaced": "Template placed.",
+      "templateCancelled": "Template placement cancelled."
+    }
   }
 }

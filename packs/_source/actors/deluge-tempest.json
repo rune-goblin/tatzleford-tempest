@@ -1,0 +1,436 @@
+{
+    "_id": "TempestDelugZgnu",
+    "_key": "!actors!TempestDelugZgnu",
+    "flags": {
+        "tatzleford-tempest": {
+            "element": "water"
+        }
+    },
+    "img": "modules/tatzleford-tempest/assets/tokens/deluge-tempest.webp",
+    "items": [
+        {
+            "_id": "TmpDelugeWave000",
+            "_key": "!actors.items!TempestDelugZgnu.TmpDelugeWave000",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
+            "name": "crushing wave",
+            "sort": 100000,
+            "system": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "custom": "",
+                    "value": [
+                        "push"
+                    ]
+                },
+                "bonus": {
+                    "value": 27
+                },
+                "damageRolls": {
+                    "delugecrushwavebludgn": {
+                        "damage": "4d10+10",
+                        "damageType": "bludgeoning"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "The Queen's Tempest"
+                },
+                "range": null,
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "magical",
+                        "reach-10",
+                        "water"
+                    ]
+                }
+            },
+            "type": "melee"
+        },
+        {
+            "_id": "TmpDelugePush500",
+            "_key": "!actors.items!TempestDelugZgnu.TmpDelugePush500",
+            "_stats": {
+                "compendiumSource": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.t6cx9FOODmeZQNYl"
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Push 5 feet",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 1
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>@Localize[PF2E.NPC.Abilities.Glossary.Push]</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "The Queen's Tempest"
+                },
+                "rules": [],
+                "slug": "push",
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TmpFlashFlood000",
+            "_key": "!actors.items!TempestDelugZgnu.TmpFlashFlood000",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Flash Flood",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Deluge Tempest releases water in a @Template[line|distance:60]. Creatures in the line attempt a @Check[reflex|dc:35|basic|options:area-effect,damaging-effect] save, taking @Damage[8d8[bludgeoning]|options:area-damage] damage. On a failure, a creature is also pushed 20 feet away from the Tempest. On a critical failure, it is instead pushed 30 feet and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "The Queen's Tempest"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TmpUndertow00000",
+            "_key": "!actors.items!TempestDelugZgnu.TmpUndertow00000",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Undertow",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Deluge Tempest creates a @Template[burst|distance:20] within 60 feet. The burst is difficult terrain until the beginning of the Tempest's next turn. A creature that enters the area or begins its turn there must attempt a @Check[reflex|dc:35] save. On a failure, it is pulled 10 feet toward the center; on a critical failure, it is also knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone]. A creature attempts this save only once per round.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "The Queen's Tempest"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TmpDrownStreets0",
+            "_key": "!actors.items!TempestDelugZgnu.TmpDrownStreets0",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Drown the Streets",
+            "sort": 500000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 3
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p>The Deluge Tempest floods its current settlement sector until the beginning of its next turn. The ground is difficult terrain, and non-flying creatures in the sector treat it as uneven ground. This ability affects the battlefield but does not itself add a settlement damage hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "The Queen's Tempest"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TmpStormFormwat0",
+            "_key": "!actors.items!TempestDelugZgnu.TmpStormFormwat0",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Storm Form",
+            "sort": 8000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>A Tempest ignores difficult terrain. It can move through creatures' spaces but cannot end its movement in an occupied space.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "The Queen's Tempest"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "TmpDemisewat0000",
+            "_key": "!actors.items!TempestDelugZgnu.TmpDemisewat0000",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Tempest's Demise",
+            "sort": 9000000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "defensive",
+                "description": {
+                    "value": "<p>When a Tempest is destroyed, its corresponding result is permanently suppressed in the Queen's Tempest routine. Any unresolved collateral marker created by that result is removed. When the last Tempest is destroyed, the hazard ends immediately.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "The Queen's Tempest"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Deluge Tempest",
+    "prototypeToken": {
+        "actorLink": false,
+        "alpha": 1,
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
+        "bar2": {
+            "attribute": null
+        },
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": -1,
+        "flags": {
+            "pf2e": {
+                "autoscale": false,
+                "linkToActorSize": true
+            }
+        },
+        "height": 2,
+        "lockRotation": true,
+        "name": "Deluge Tempest",
+        "rotation": 0,
+        "sight": {
+            "angle": 360,
+            "attenuation": 0.1,
+            "brightness": 1,
+            "color": null,
+            "contrast": 0,
+            "enabled": false,
+            "range": 0,
+            "saturation": 0,
+            "visionMode": "basic"
+        },
+        "texture": {
+            "alphaThreshold": 0.75,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "fit": "contain",
+            "scaleX": 1,
+            "scaleY": 1,
+            "src": "modules/tatzleford-tempest/assets/tokens/deluge-tempest.webp",
+            "tint": "#ffffff"
+        },
+        "width": 2
+    },
+    "system": {
+        "abilities": {
+            "cha": {
+                "mod": 2
+            },
+            "con": {
+                "mod": 6
+            },
+            "dex": {
+                "mod": 5
+            },
+            "int": {
+                "mod": -1
+            },
+            "str": {
+                "mod": 6
+            },
+            "wis": {
+                "mod": 4
+            }
+        },
+        "attributes": {
+            "ac": {
+                "details": "",
+                "value": 34
+            },
+            "allSaves": {
+                "value": ""
+            },
+            "hp": {
+                "details": "",
+                "max": 225,
+                "temp": 0,
+                "value": 225
+            },
+            "immunities": [
+                {
+                    "type": "bleed"
+                },
+                {
+                    "type": "disease"
+                },
+                {
+                    "type": "paralyzed"
+                },
+                {
+                    "type": "poison"
+                }
+            ],
+            "resistances": [
+                {
+                    "doubleVs": [],
+                    "exceptions": [
+                        "magical"
+                    ],
+                    "type": "physical",
+                    "value": 10
+                }
+            ],
+            "speed": {
+                "details": "",
+                "otherSpeeds": [
+                    {
+                        "type": "fly",
+                        "value": 60
+                    }
+                ],
+                "value": 0
+            }
+        },
+        "details": {
+            "blurb": "The Flood",
+            "languages": {
+                "details": "",
+                "value": []
+            },
+            "level": {
+                "value": 13
+            },
+            "privateNotes": "",
+            "publicNotes": "<p>A walking column of black rain and churning water that turns streets into rivers.</p>\n<hr />\n<p>The Deluge Tempest anchors the flood aspect of the Queen's Tempest. It controls streets and bridges, separates the party, and makes movement costly.</p>",
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "The Queen's Tempest"
+            }
+        },
+        "initiative": {
+            "statistic": "perception"
+        },
+        "perception": {
+            "details": "",
+            "mod": 25,
+            "senses": [
+                {
+                    "type": "darkvision"
+                }
+            ]
+        },
+        "resources": {},
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 27
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 25
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 22
+            }
+        },
+        "skills": {
+            "athletics": {
+                "base": 27
+            }
+        },
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "lg"
+            },
+            "value": [
+                "air",
+                "elemental",
+                "primal",
+                "water"
+            ]
+        }
+    },
+    "type": "npc"
+}

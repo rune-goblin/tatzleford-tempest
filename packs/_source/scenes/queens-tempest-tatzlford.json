@@ -1,0 +1,796 @@
+{
+  "_id": "TempestTatzlfrd1",
+  "name": "The Queen's Tempest at Tatzlford",
+  "navigation": true,
+  "navName": "Queen's Tempest",
+  "folder": null,
+  "width": 7200,
+  "height": 4800,
+  "padding": 0,
+  "initial": {
+    "x": 3500,
+    "y": 2050,
+    "scale": 0.3
+  },
+  "grid": {
+    "type": 1,
+    "size": 33,
+    "color": "#000000",
+    "alpha": 0.2,
+    "distance": 5,
+    "units": "ft",
+    "style": "solidLines",
+    "thickness": 1
+  },
+  "tokenVision": true,
+  "levels": [
+    {
+      "_id": "defaultLevel0000",
+      "name": "Tatzlford",
+      "background": {
+        "color": "#000000",
+        "src": "modules/pf2e-kingmaker/assets/maps-regions/tatzlford/background.webp",
+        "tint": "#ffffff",
+        "alphaThreshold": 0.75
+      },
+      "elevation": {
+        "top": 20,
+        "bottom": 0
+      },
+      "foreground": {
+        "src": null,
+        "tint": "#ffffff",
+        "alphaThreshold": 0.75
+      },
+      "fog": {
+        "src": null
+      },
+      "textures": {
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "offsetX": 0,
+        "offsetY": 0,
+        "fit": "fill",
+        "scaleX": 1,
+        "scaleY": 1,
+        "rotation": 0
+      },
+      "visibility": {
+        "levels": []
+      },
+      "sort": 0,
+      "flags": {},
+      "_key": "!scenes.levels!TempestTatzlfrd1.defaultLevel0000"
+    }
+  ],
+  "initialLevel": "defaultLevel0000",
+  "drawings": [],
+  "tokens": [
+    {
+      "displayName": 30,
+      "displayBars": 20,
+      "flags": {
+        "pf2e": {
+          "linkToActorSize": true,
+          "autoscale": false
+        }
+      },
+      "height": 2,
+      "width": 2,
+      "disposition": -1,
+      "name": "Vortex Tempest",
+      "actorLink": true,
+      "lockRotation": true,
+      "rotation": 0,
+      "alpha": 1,
+      "light": {
+        "alpha": 0.5,
+        "angle": 360,
+        "bright": 0,
+        "color": null,
+        "coloration": 1,
+        "dim": 0,
+        "luminosity": 0.5,
+        "saturation": 0,
+        "contrast": 0,
+        "shadows": 0,
+        "animation": {
+          "speed": 5,
+          "intensity": 5,
+          "reverse": false,
+          "type": null
+        },
+        "darkness": {
+          "min": 0,
+          "max": 1
+        },
+        "attenuation": 0.5,
+        "negative": false,
+        "priority": 0
+      },
+      "bar1": {
+        "attribute": "attributes.hp"
+      },
+      "bar2": {
+        "attribute": null
+      },
+      "texture": {
+        "src": "modules/tatzleford-tempest/assets/tokens/vortex-tempest.webp",
+        "scaleX": 1,
+        "scaleY": 1,
+        "tint": "#ffffff",
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0.75
+      },
+      "sight": {
+        "angle": 360,
+        "enabled": false,
+        "range": 0,
+        "brightness": 1,
+        "visionMode": "basic",
+        "color": null,
+        "attenuation": 0.1,
+        "saturation": 0,
+        "contrast": 0
+      },
+      "detectionModes": {},
+      "occludable": {
+        "radius": 0
+      },
+      "ring": {
+        "enabled": false,
+        "colors": {
+          "ring": null,
+          "background": null
+        },
+        "effects": 1,
+        "subject": {
+          "scale": 1,
+          "texture": null
+        }
+      },
+      "turnMarker": {
+        "mode": 1,
+        "animation": null,
+        "src": null,
+        "disposition": false
+      },
+      "movementAction": null,
+      "actorId": "TempestVortxMTah",
+      "hidden": false,
+      "sort": 0,
+      "shape": 4,
+      "_id": "TempestTokenVrtx",
+      "x": 3993,
+      "y": 2013,
+      "elevation": 0,
+      "locked": false,
+      "_movementHistory": [],
+      "_regions": [],
+      "depth": 1,
+      "level": "defaultLevel0000",
+      "_key": "!scenes.tokens!TempestTatzlfrd1.TempestTokenVrtx"
+    },
+    {
+      "displayName": 30,
+      "displayBars": 20,
+      "flags": {
+        "pf2e": {
+          "linkToActorSize": true,
+          "autoscale": false
+        }
+      },
+      "height": 2,
+      "width": 2,
+      "disposition": -1,
+      "name": "Lightning Tempest",
+      "actorLink": true,
+      "lockRotation": true,
+      "rotation": 0,
+      "alpha": 1,
+      "light": {
+        "alpha": 0.5,
+        "angle": 360,
+        "bright": 0,
+        "color": null,
+        "coloration": 1,
+        "dim": 0,
+        "luminosity": 0.5,
+        "saturation": 0,
+        "contrast": 0,
+        "shadows": 0,
+        "animation": {
+          "speed": 5,
+          "intensity": 5,
+          "reverse": false,
+          "type": null
+        },
+        "darkness": {
+          "min": 0,
+          "max": 1
+        },
+        "attenuation": 0.5,
+        "negative": false,
+        "priority": 0
+      },
+      "bar1": {
+        "attribute": "attributes.hp"
+      },
+      "bar2": {
+        "attribute": null
+      },
+      "texture": {
+        "src": "modules/tatzleford-tempest/assets/tokens/lightning-tempest.webp",
+        "scaleX": 1,
+        "scaleY": 1,
+        "tint": "#ffffff",
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0.75
+      },
+      "sight": {
+        "angle": 360,
+        "enabled": false,
+        "range": 0,
+        "brightness": 1,
+        "visionMode": "basic",
+        "color": null,
+        "attenuation": 0.1,
+        "saturation": 0,
+        "contrast": 0
+      },
+      "detectionModes": {},
+      "occludable": {
+        "radius": 0
+      },
+      "ring": {
+        "enabled": false,
+        "colors": {
+          "ring": null,
+          "background": null
+        },
+        "effects": 1,
+        "subject": {
+          "scale": 1,
+          "texture": null
+        }
+      },
+      "turnMarker": {
+        "mode": 1,
+        "animation": null,
+        "src": null,
+        "disposition": false
+      },
+      "movementAction": null,
+      "actorId": "TempestLghtnPWdk",
+      "hidden": false,
+      "sort": 0,
+      "shape": 4,
+      "_id": "TempestTokenLgtn",
+      "x": 3267,
+      "y": 1815,
+      "elevation": 0,
+      "locked": false,
+      "_movementHistory": [],
+      "_regions": [],
+      "depth": 1,
+      "level": "defaultLevel0000",
+      "_key": "!scenes.tokens!TempestTatzlfrd1.TempestTokenLgtn"
+    },
+    {
+      "displayName": 30,
+      "displayBars": 20,
+      "flags": {
+        "pf2e": {
+          "linkToActorSize": true,
+          "autoscale": false
+        }
+      },
+      "height": 2,
+      "width": 2,
+      "disposition": -1,
+      "name": "Deluge Tempest",
+      "actorLink": true,
+      "lockRotation": true,
+      "rotation": 0,
+      "alpha": 1,
+      "light": {
+        "alpha": 0.5,
+        "angle": 360,
+        "bright": 0,
+        "color": null,
+        "coloration": 1,
+        "dim": 0,
+        "luminosity": 0.5,
+        "saturation": 0,
+        "contrast": 0,
+        "shadows": 0,
+        "animation": {
+          "speed": 5,
+          "intensity": 5,
+          "reverse": false,
+          "type": null
+        },
+        "darkness": {
+          "min": 0,
+          "max": 1
+        },
+        "attenuation": 0.5,
+        "negative": false,
+        "priority": 0
+      },
+      "bar1": {
+        "attribute": "attributes.hp"
+      },
+      "bar2": {
+        "attribute": null
+      },
+      "texture": {
+        "src": "modules/tatzleford-tempest/assets/tokens/deluge-tempest.webp",
+        "scaleX": 1,
+        "scaleY": 1,
+        "tint": "#ffffff",
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0.75
+      },
+      "sight": {
+        "angle": 360,
+        "enabled": false,
+        "range": 0,
+        "brightness": 1,
+        "visionMode": "basic",
+        "color": null,
+        "attenuation": 0.1,
+        "saturation": 0,
+        "contrast": 0
+      },
+      "detectionModes": {},
+      "occludable": {
+        "radius": 0
+      },
+      "ring": {
+        "enabled": false,
+        "colors": {
+          "ring": null,
+          "background": null
+        },
+        "effects": 1,
+        "subject": {
+          "scale": 1,
+          "texture": null
+        }
+      },
+      "turnMarker": {
+        "mode": 1,
+        "animation": null,
+        "src": null,
+        "disposition": false
+      },
+      "movementAction": null,
+      "actorId": "TempestDelugZgnu",
+      "hidden": false,
+      "sort": 0,
+      "shape": 4,
+      "_id": "TempestTokenDelg",
+      "x": 2475,
+      "y": 2277,
+      "elevation": 0,
+      "locked": false,
+      "_movementHistory": [],
+      "_regions": [],
+      "depth": 1,
+      "level": "defaultLevel0000",
+      "_key": "!scenes.tokens!TempestTatzlfrd1.TempestTokenDelg"
+    }
+  ],
+  "lights": [],
+  "notes": [
+    {
+      "entryId": "TempestGMGuide01",
+      "pageId": "TempestPageLndmk",
+      "text": "A1. Able's Inn",
+      "x": 4496,
+      "y": 1185,
+      "global": false,
+      "iconSize": 64,
+      "texture": {
+        "tint": "#ffffff",
+        "src": "icons/svg/book.svg",
+        "scaleX": 1,
+        "scaleY": 1,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0
+      },
+      "fontFamily": "Signika",
+      "fontSize": 56,
+      "textColor": "#ffffff",
+      "textAnchor": 1,
+      "_id": "Ye1znq8cwvIQngoZ",
+      "flags": {},
+      "elevation": 0,
+      "sort": 0,
+      "levels": [],
+      "locked": false,
+      "_key": "!scenes.notes!TempestTatzlfrd1.Ye1znq8cwvIQngoZ"
+    },
+    {
+      "entryId": "TempestGMGuide01",
+      "pageId": "TempestPageLndmk",
+      "text": "A10. Tatzlwyrm Tavern",
+      "x": 3717,
+      "y": 2297,
+      "global": false,
+      "iconSize": 64,
+      "texture": {
+        "tint": "#ffffff",
+        "src": "icons/svg/book.svg",
+        "scaleX": 1,
+        "scaleY": 1,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0
+      },
+      "fontFamily": "Signika",
+      "fontSize": 56,
+      "textColor": "#ffffff",
+      "textAnchor": 1,
+      "flags": {},
+      "_id": "r8YKbFT3QGBCp3Rn",
+      "elevation": 0,
+      "sort": 0,
+      "levels": [],
+      "locked": false,
+      "_key": "!scenes.notes!TempestTatzlfrd1.r8YKbFT3QGBCp3Rn"
+    },
+    {
+      "entryId": "TempestGMGuide01",
+      "pageId": "TempestPageLndmk",
+      "text": "A11. Thrillseekers",
+      "x": 1635,
+      "y": 3004,
+      "global": false,
+      "iconSize": 64,
+      "texture": {
+        "tint": "#ffffff",
+        "src": "icons/svg/book.svg",
+        "scaleX": 1,
+        "scaleY": 1,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0
+      },
+      "fontFamily": "Signika",
+      "fontSize": 56,
+      "textColor": "#ffffff",
+      "textAnchor": 1,
+      "flags": {},
+      "_id": "8hPJBtcZjxMVrYQO",
+      "elevation": 0,
+      "sort": 0,
+      "levels": [],
+      "locked": false,
+      "_key": "!scenes.notes!TempestTatzlfrd1.8hPJBtcZjxMVrYQO"
+    },
+    {
+      "entryId": "TempestGMGuide01",
+      "pageId": "TempestPageLndmk",
+      "text": "A2. Gnori's Gems",
+      "x": 5251,
+      "y": 1700,
+      "global": false,
+      "iconSize": 64,
+      "texture": {
+        "tint": "#ffffff",
+        "src": "icons/svg/book.svg",
+        "scaleX": 1,
+        "scaleY": 1,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0
+      },
+      "fontFamily": "Signika",
+      "fontSize": 56,
+      "textColor": "#ffffff",
+      "textAnchor": 1,
+      "flags": {},
+      "_id": "Bp7IewHx86PFHFTF",
+      "elevation": 0,
+      "sort": 0,
+      "levels": [],
+      "locked": false,
+      "_key": "!scenes.notes!TempestTatzlfrd1.Bp7IewHx86PFHFTF"
+    },
+    {
+      "entryId": "TempestGMGuide01",
+      "pageId": "TempestPageLndmk",
+      "text": "A3. Ironhand Smithy",
+      "x": 5167,
+      "y": 2361,
+      "global": false,
+      "iconSize": 64,
+      "texture": {
+        "tint": "#ffffff",
+        "src": "icons/svg/book.svg",
+        "scaleX": 1,
+        "scaleY": 1,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0
+      },
+      "fontFamily": "Signika",
+      "fontSize": 56,
+      "textColor": "#ffffff",
+      "textAnchor": 1,
+      "flags": {},
+      "_id": "cJkaQPeF7kAhXPV2",
+      "elevation": 0,
+      "sort": 0,
+      "levels": [],
+      "locked": false,
+      "_key": "!scenes.notes!TempestTatzlfrd1.cJkaQPeF7kAhXPV2"
+    },
+    {
+      "entryId": "TempestGMGuide01",
+      "pageId": "TempestPageLndmk",
+      "text": "A4. River Run Alehouse",
+      "x": 4217,
+      "y": 2681,
+      "global": false,
+      "iconSize": 64,
+      "texture": {
+        "tint": "#ffffff",
+        "src": "icons/svg/book.svg",
+        "scaleX": 1,
+        "scaleY": 1,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0
+      },
+      "fontFamily": "Signika",
+      "fontSize": 56,
+      "textColor": "#ffffff",
+      "textAnchor": 1,
+      "flags": {},
+      "_id": "QFYz9cWnyOOjTTfG",
+      "elevation": 0,
+      "sort": 0,
+      "levels": [],
+      "locked": false,
+      "_key": "!scenes.notes!TempestTatzlfrd1.QFYz9cWnyOOjTTfG"
+    },
+    {
+      "entryId": "TempestGMGuide01",
+      "pageId": "TempestPageLndmk",
+      "text": "A5. Skunk River Bridge",
+      "x": 2579,
+      "y": 2180,
+      "global": false,
+      "iconSize": 64,
+      "texture": {
+        "tint": "#ffffff",
+        "src": "icons/svg/book.svg",
+        "scaleX": 1,
+        "scaleY": 1,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0
+      },
+      "fontFamily": "Signika",
+      "fontSize": 56,
+      "textColor": "#ffffff",
+      "textAnchor": 1,
+      "flags": {},
+      "_id": "5q2C8vRKjwCMLtEw",
+      "elevation": 0,
+      "sort": 0,
+      "levels": [],
+      "locked": false,
+      "_key": "!scenes.notes!TempestTatzlfrd1.5q2C8vRKjwCMLtEw"
+    },
+    {
+      "entryId": "TempestGMGuide01",
+      "pageId": "TempestPageLndmk",
+      "text": "A6. Tatzlford General Store",
+      "x": 4107,
+      "y": 1376,
+      "global": false,
+      "iconSize": 64,
+      "texture": {
+        "tint": "#ffffff",
+        "src": "icons/svg/book.svg",
+        "scaleX": 1,
+        "scaleY": 1,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0
+      },
+      "fontFamily": "Signika",
+      "fontSize": 56,
+      "textColor": "#ffffff",
+      "textAnchor": 1,
+      "flags": {},
+      "_id": "t8T7132betwy9kcG",
+      "elevation": 0,
+      "sort": 0,
+      "levels": [],
+      "locked": false,
+      "_key": "!scenes.notes!TempestTatzlfrd1.t8T7132betwy9kcG"
+    },
+    {
+      "entryId": "TempestGMGuide01",
+      "pageId": "TempestPageLndmk",
+      "text": "A7. Tatzlford Library",
+      "x": 5369,
+      "y": 1381,
+      "global": false,
+      "iconSize": 64,
+      "texture": {
+        "tint": "#ffffff",
+        "src": "icons/svg/book.svg",
+        "scaleX": 1,
+        "scaleY": 1,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0
+      },
+      "fontFamily": "Signika",
+      "fontSize": 56,
+      "textColor": "#ffffff",
+      "textAnchor": 1,
+      "flags": {},
+      "_id": "VSvMn0tLp6zeupXn",
+      "elevation": 0,
+      "sort": 0,
+      "levels": [],
+      "locked": false,
+      "_key": "!scenes.notes!TempestTatzlfrd1.VSvMn0tLp6zeupXn"
+    },
+    {
+      "entryId": "TempestGMGuide01",
+      "pageId": "TempestPageLndmk",
+      "text": "A8. Tatzlford Lodge",
+      "x": 1373,
+      "y": 1620,
+      "global": false,
+      "iconSize": 64,
+      "texture": {
+        "tint": "#ffffff",
+        "src": "icons/svg/book.svg",
+        "scaleX": 1,
+        "scaleY": 1,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0
+      },
+      "fontFamily": "Signika",
+      "fontSize": 56,
+      "textColor": "#ffffff",
+      "textAnchor": 1,
+      "flags": {},
+      "_id": "zOrPoJ3yabimxK40",
+      "elevation": 0,
+      "sort": 0,
+      "levels": [],
+      "locked": false,
+      "_key": "!scenes.notes!TempestTatzlfrd1.zOrPoJ3yabimxK40"
+    },
+    {
+      "entryId": "TempestGMGuide01",
+      "pageId": "TempestPageLndmk",
+      "text": "A9. Tatzlford Fort and Town Hall",
+      "x": 4524,
+      "y": 1980,
+      "global": false,
+      "iconSize": 64,
+      "texture": {
+        "tint": "#ffffff",
+        "src": "icons/svg/book.svg",
+        "scaleX": 1,
+        "scaleY": 1,
+        "anchorX": 0.5,
+        "anchorY": 0.5,
+        "fit": "contain",
+        "alphaThreshold": 0
+      },
+      "fontFamily": "Signika",
+      "fontSize": 56,
+      "textColor": "#ffffff",
+      "textAnchor": 1,
+      "flags": {},
+      "_id": "KMkwEY2y4pSTRBSZ",
+      "elevation": 0,
+      "sort": 0,
+      "levels": [],
+      "locked": false,
+      "_key": "!scenes.notes!TempestTatzlfrd1.KMkwEY2y4pSTRBSZ"
+    }
+  ],
+  "sounds": [],
+  "templates": [],
+  "tiles": [],
+  "walls": [],
+  "regions": [],
+  "playlist": null,
+  "playlistSound": null,
+  "journal": "TempestGMGuide01",
+  "journalEntryPage": null,
+  "weather": "rainStorm",
+  "environment": {
+    "globalLight": {
+      "luminosity": 0,
+      "enabled": false,
+      "darkness": {
+        "max": 1,
+        "min": 0
+      },
+      "alpha": 0.5,
+      "bright": false,
+      "color": null,
+      "coloration": 1,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0
+    },
+    "darknessLevel": 0,
+    "darknessLock": false,
+    "cycle": true,
+    "base": {
+      "hue": 0,
+      "intensity": 0,
+      "luminosity": 0,
+      "saturation": 0,
+      "shadows": 0
+    },
+    "dark": {
+      "hue": 0.7138888888888889,
+      "intensity": 0,
+      "luminosity": -0.25,
+      "saturation": 0,
+      "shadows": 0
+    }
+  },
+  "fog": {
+    "colors": {
+      "explored": null,
+      "unexplored": null
+    },
+    "mode": 1
+  },
+  "shiftX": 0,
+  "shiftY": 0,
+  "transition": {
+    "type": null,
+    "duration": 1500,
+    "activeOnly": false
+  },
+  "thumb": null,
+  "ownership": {
+    "default": 0
+  },
+  "sort": 0,
+  "flags": {
+    "pf2e": {
+      "rulesBasedVision": null,
+      "hearingRange": null,
+      "environmentTypes": [],
+      "syncDarkness": "default"
+    }
+  },
+  "_key": "!scenes!TempestTatzlfrd1"
+}

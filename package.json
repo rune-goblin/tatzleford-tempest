@@ -9,7 +9,6 @@
     "node": ">=22.18.0"
   },
   "scripts": {
-    "remove-example-files": "node scripts/removeExampleFiles.ts",
     "build": "node scripts/pack.ts && vite build",
     "dev": "vite",
     "watch": "vite build --watch",

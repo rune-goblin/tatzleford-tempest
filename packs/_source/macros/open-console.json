@@ -1,0 +1,15 @@
+{
+  "_id": "TempestMacroCnsl",
+  "name": "Open the Storm Console",
+  "type": "script",
+  "scope": "global",
+  "img": "icons/svg/lightning.svg",
+  "command": "const api = game.modules.get('tatzleford-tempest')?.api;\nif (!api?.openConsole) {\n  ui.notifications.error('Tatzleford Tempest: the module API is not ready yet.');\n  return;\n}\napi.openConsole();\n",
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0
+  },
+  "flags": {},
+  "_key": "!macros!TempestMacroCnsl"
+}

@@ -1,0 +1,214 @@
+{
+    "_id": "QueensTempstmt07",
+    "_key": "!actors!QueensTempstmt07",
+    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "items": [
+        {
+            "_id": "QtStormIntervn00",
+            "_key": "!actors.items!QueensTempstmt07.QtStormIntervn00",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
+            "name": "Storm Intervention",
+            "sort": 100000,
+            "system": {
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": 2
+                },
+                "category": "interaction",
+                "description": {
+                    "value": "<p>A creature able to affect a threatened sector can spend 2 actions to attempt a DC 35 check using an appropriate skill. Use DC 33 if the approach is particularly suitable, or DC 37 if it is particularly difficult. The character does not need to stand in the sector if their method can plausibly affect it at range.</p>\n<ul><li>@Check[arcana|dc:35|name:Storm Intervention] or @Check[nature|dc:35|name:Storm Intervention] to disrupt the supernatural weather.</li><li>@Check[athletics|dc:35|name:Storm Intervention] to brace a structure, clear debris, or divert water.</li><li>@Check[acrobatics|dc:35|name:Storm Intervention] to cross a collapsing area or make a dangerous rescue.</li><li>@Check[crafting|dc:35|name:Storm Intervention] to reinforce or repair a threatened structure.</li><li>@Check[survival|dc:35|name:Storm Intervention] to predict and redirect wind or floodwater.</li><li>An appropriate spell, class feature, item, or other credible solution, usually accompanied by a relevant check.</li></ul>\n<p>Particularly suitable approaches use @Check[nature|dc:33|name:Storm Intervention (Suitable)]{DC 33}; particularly difficult ones use @Check[nature|dc:37|name:Storm Intervention (Difficult)]{DC 37}.</p>\n<hr />\n<p><strong>Critical Success</strong> The collateral event is prevented, and the intervention creates an additional advantage. The GM can grant the party 1 Hero Point, give the corresponding Tempest a -1 circumstance penalty to AC until the end of its next turn, or award a similarly useful benefit.</p>\n<p><strong>Success</strong> The collateral event is prevented.</p>\n<p><strong>Failure</strong> The collateral event resolves normally.</p>\n<p><strong>Critical Failure</strong> The collateral event resolves, and the intervening creature suffers the rolled hazard effect as though it were in the affected area. If it was already affected, use the worse result rather than applying the damage twice.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "The Queen's Tempest"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": []
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QtThunderclap000",
+            "_key": "!actors.items!QueensTempstmt07.QtThunderclap000",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "1 - Thunderclap",
+            "sort": 200000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Area</strong> @Template[burst|distance:60] within the selected sector</p>\n<p><strong>Saving Throw</strong> @Check[fortitude|dc:38|options:area-effect,damaging-effect]</p>\n<p>The storm releases a concussive peal. Each creature in the area attempts the save.</p>\n<hr />\n<p><strong>Critical Success</strong> No effect.</p>\n<p><strong>Success</strong> Half damage.</p>\n<p><strong>Failure</strong> @Damage[8d10[sonic]|options:area-damage] damage; the creature is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 round and pushed 10 feet away from the burst's center.</p>\n<p><strong>Critical Failure</strong> Double damage; the creature is @UUID[Compendium.pf2e.conditionitems.Item.Deafened] for 1 minute, pushed 20 feet, and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<hr />\n<p><strong>Collateral</strong> The concussion shatters windows, bursts doors, and collapses roofs and masonry. If it resolves, the targeted sector or landmark takes 1 damage hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "The Queen's Tempest"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal",
+                        "sonic"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QtQueensLight000",
+            "_key": "!actors.items!QueensTempstmt07.QtQueensLight000",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "2 - Queen's Lightning",
+            "sort": 300000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Target</strong> 1 creature in the selected sector</p>\n<p><strong>Saving Throw</strong> @Check[reflex|dc:38|options:damaging-effect]</p>\n<p>Blue-white lightning grounds through the sector. If no creature is present, the bolt strikes a prominent structure and only the collateral event is created.</p>\n<hr />\n<p><strong>Critical Success</strong> No damage.</p>\n<p><strong>Success</strong> Half damage.</p>\n<p><strong>Failure</strong> @Damage[10d8[electricity]] damage.</p>\n<p><strong>Critical Failure</strong> Double damage and @Damage[2d6[persistent,electricity]] damage.</p>\n<hr />\n<p><strong>Collateral</strong> Lightning strikes a structure, tree, tower, or other prominent object and ignites supernatural fire despite the rain. If it resolves, the targeted sector or landmark takes 1 damage hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "The Queen's Tempest"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "electricity",
+                        "primal"
+                    ]
+                }
+            },
+            "type": "action"
+        },
+        {
+            "_id": "QtRendDeluge0000",
+            "_key": "!actors.items!QueensTempstmt07.QtRendDeluge0000",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "3 - Rending Deluge",
+            "sort": 400000,
+            "system": {
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": null
+                },
+                "category": "offensive",
+                "description": {
+                    "value": "<p><strong>Area</strong> @Template[cone|distance:30] originating from an edge or prominent watercourse in the selected sector</p>\n<p><strong>Saving Throw</strong> @Check[reflex|dc:38|options:area-effect,damaging-effect]</p>\n<p>A wall of rain, floodwater, and debris tears through the area.</p>\n<hr />\n<p><strong>Critical Success</strong> No damage.</p>\n<p><strong>Success</strong> Half damage.</p>\n<p><strong>Failure</strong> @Damage[6d10[bludgeoning]|options:area-damage] damage and the creature is pushed 20 feet away from the cone's origin.</p>\n<p><strong>Critical Failure</strong> Double damage; the creature is hurled 30 feet away from the cone's origin and knocked @UUID[Compendium.pf2e.conditionitems.Item.Prone].</p>\n<hr />\n<p><strong>Collateral</strong> Floodwater uproots trees, strips roofs, and sweeps away carts and walls. If it resolves, the targeted sector or landmark takes 1 damage hit.</p>"
+                },
+                "publication": {
+                    "license": "OGL",
+                    "remaster": false,
+                    "title": "The Queen's Tempest"
+                },
+                "rules": [],
+                "slug": null,
+                "traits": {
+                    "rarity": "common",
+                    "value": [
+                        "primal",
+                        "water"
+                    ]
+                }
+            },
+            "type": "action"
+        }
+    ],
+    "name": "Queen's Tempest",
+    "prototypeToken": {
+        "actorLink": false,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": -1,
+        "height": 1,
+        "name": "Queen's Tempest",
+        "width": 1
+    },
+    "system": {
+        "attributes": {
+            "ac": {
+                "value": 0
+            },
+            "emitsSound": "encounter",
+            "hardness": 0,
+            "hasHealth": false,
+            "hp": {
+                "details": "",
+                "max": 0,
+                "temp": 0,
+                "tempmax": 0,
+                "value": 0
+            },
+            "stealth": {
+                "details": "<p>(the storm is obvious)</p>",
+                "value": 0
+            }
+        },
+        "creatureType": "",
+        "details": {
+            "description": "<p>A supernatural storm engulfs the settlement. Three Tempests anchor its thunder, lightning, and flood-wind aspects. Each manifestation that the heroes destroy permanently weakens the storm.</p>",
+            "disable": "<p>The Queen's Tempest cannot be disabled directly while any Tempest survives. Destroying all three Tempests ends the hazard immediately. Individual collateral events can be prevented with Storm Intervention.</p>",
+            "isComplex": true,
+            "level": {
+                "value": 16
+            },
+            "publication": {
+                "license": "OGL",
+                "remaster": false,
+                "title": "The Queen's Tempest"
+            },
+            "reset": "<p>The Queen's Tempest does not reset. It ends when the last Tempest is destroyed.</p>",
+            "routine": "<p><strong>(1 action)</strong> At the beginning of the hazard's turn, roll [[/gmr 1d3 #Tempest Routine]]{1d3} and consult the table below. Also roll randomly for a settlement sector.</p>\n<table><thead><tr><th>1d3</th><th>Anchor</th><th>Effect</th></tr></thead><tbody><tr><td>1</td><td>Vortex Tempest</td><td>Thunderclap</td></tr><tr><td>2</td><td>Lightning Tempest</td><td>Queen's Lightning</td></tr><tr><td>3</td><td>Deluge Tempest</td><td>Rending Deluge</td></tr></tbody></table>\n<p>If the corresponding Tempest has been destroyed, the storm takes no action that round. Describe the clouds attempting to produce the effect before that part of the storm falters. Do not reroll.</p>\n<p>If the corresponding Tempest survives, resolve its effect in the randomly selected sector and place a matching collateral marker there. The effect applies only to creatures in its listed area. The collateral event resolves at the beginning of the hazard's next turn unless the heroes prevent it with Storm Intervention. A pending event is also canceled if its corresponding Tempest is destroyed before it resolves.</p>"
+        },
+        "saves": {
+            "fortitude": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "reflex": {
+                "saveDetail": "",
+                "value": 0
+            },
+            "will": {
+                "saveDetail": "",
+                "value": 0
+            }
+        },
+        "statusEffects": [],
+        "traits": {
+            "rarity": "unique",
+            "size": {
+                "value": "grg"
+            },
+            "value": [
+                "environmental",
+                "magical",
+                "primal"
+            ]
+        }
+    },
+    "type": "hazard"
+}

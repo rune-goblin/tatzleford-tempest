@@ -58,10 +58,13 @@ so executors can re-check signatures.
   `foundry/client/applications/ui/scene-controls.d.mts` — `tools` is a
   `Record<string, SceneControlTool>`; both carry `order`; tools have
   `toggle`/`button`/`onChange`.
-- **`InteractionLayer.static prepareSceneControls(): SceneControl | null`** exists
-  (`interaction-layer.d.mts:48`), but whether core auto-invokes it for
-  module-registered layers is **not verified** — the plan uses the
-  `getSceneControlButtons` hook, which is guaranteed.
+- **`InteractionLayer.static prepareSceneControls(): SceneControl | null`**
+  (`interaction-layer.d.mts:48`) **is auto-invoked for module-registered layers** —
+  proven at runtime, see Section 2a. Use it; do **not** use `getSceneControlButtons`
+  to declare our own control. Core iterates `CONFIG.Canvas.layers`, calls
+  `prepareSceneControls()` on every `InteractionLayer` subclass, and only then fires
+  `getSceneControlButtons` — so that hook is for adding tools to *other* packages'
+  controls, not for registering ours.
 - **`MeasuredTemplateDocument`** — ambient global (`global-external.d.mts`),
   schema in `foundry/common/documents/measured-template.d.mts`: `t`, `x`, `y`,
   `distance`, `direction`, `angle`, `width`, `fillColor`, `flags`.
@@ -80,7 +83,57 @@ so executors can re-check signatures.
   (Section 3) — do not conflate the two.
 - **Hooks used**: `init` (register settings + layer), `canvasReady` (first draw),
   `updateScene` (flag-diff fan-out to every client), `updateActor` (Tempest HP
-  watch), `getSceneControlButtons`.
+  watch).
+
+## 2a. Runtime spike — layer registration proven
+
+A throwaway spike ran the registration against real headless Foundry **v14 build 365**
+(pf2e 8.4.0) under Playwright. Result: **a module can register its own canvas layer**,
+it instantiates, draws, and gets a working scene-control button. Asserted in-browser:
+`canvas.tatzlefordTempest` exists, `instanceof InteractionLayer`, parent is
+`InterfaceCanvasGroup`, has a visible `PIXI.Graphics` child, `activate()` works, and
+the control button reaches the DOM. Core's `_createLayers()` (`foundry.mjs:110499`)
+iterates `CONFIG.Canvas.layers` generically — there is no core whitelist.
+
+Working registration:
+
+```ts
+const { InteractionLayer } = foundry.canvas.layers;
+
+export class TempestLayer extends InteractionLayer {
+  static override get layerOptions() {
+    return Object.assign(super.layerOptions, { name: 'tatzlefordTempest', zIndex: 700 });
+  }
+  static override prepareSceneControls(): SceneControl { /* … */ }
+  protected override async _draw(options: object): Promise<void> {
+    await super._draw(options);
+    this.marker = this.addChild(new PIXI.Graphics());
+  }
+}
+
+export function registerTempestLayer(): void {
+  const layers = CONFIG.Canvas.layers as unknown as Record<string, { group: string; layerClass: unknown }>;
+  layers['tatzlefordTempest'] = { group: 'interface', layerClass: TempestLayer };
+}
+```
+
+Non-obvious constraints the spike surfaced, all of which fail *silently*:
+
+1. `layerOptions.name` must equal the `CONFIG.Canvas.layers` key. `CanvasLayer.instance`
+   resolves `canvas[layerOptions.name]` and `activate()` uses it as the control id.
+2. Register on `init`. `_createLayers()` runs at canvas-group construction; later is too late.
+3. `canvas.<name>` is defined non-writable and only `if (!(name in canvas))` — a colliding
+   key yields `canvas.interface.<name>` with no top-level alias.
+4. Scene controls are prepared once, on SceneControls' first render.
+5. `SceneControl` imports from
+   `foundry-pf2e/foundry/client/applications/ui/scene-controls.mjs` — no cast needed.
+   Only the `CONFIG.Canvas.layers` assignment needs one.
+6. The interface group draws the pause banner above `zIndex: 700`.
+
+E2e notes: Foundry ships PIXI minified, so `constructor.name` is `"Q"` — assert
+`instanceof w.PIXI.Graphics`, never on names. Use `TEST_WORLD=km-test`; `stolen-lands`
+is LevelDB-locked by the running desktop app, and a world with no viewed scene leaves
+`canvas.ready === false` with no layers at all, so `scene.view()` defensively.
 
 ## 3. Coarse grid geometry
 
@@ -168,8 +221,9 @@ fills (safe = faint outline, damaged = yellow ≈ 0.35 alpha, destroyed = red �
 0.4 alpha), storm graphics (lightning strike marks fading over the last N
 strikes; vortex spiral + trail; flood front as a thick contiguous band), then
 GM-only proposal ghosts (dashed). ≤ ~250 cells means one `PIXI.Graphics` rebuild
-per state change — no perf work needed. Scene-control group (via
-`getSceneControlButtons`, GM-only `visible`): tools **paint** (left-drag paints,
+per state change — no perf work needed. Scene-control group (declared from
+`static prepareSceneControls()`, GM-only `visible` — see Section 2a; the
+`getSceneControlButtons` hook is NOT used): tools **paint** (left-drag paints,
 right-drag erases), **damage** (left-click cycles safe→damaged→destroyed,
 right-click reverses), and a **console** button tool whose `onChange` calls
 `game.modules.get(MODULE_ID).api.openConsole()` — the button goes through the

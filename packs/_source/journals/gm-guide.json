@@ -1,0 +1,176 @@
+{
+  "_id": "TempestGMGuide01",
+  "name": "The Queen's Tempest — GM Guide",
+  "categories": [],
+  "ownership": {
+    "default": 0
+  },
+  "folder": null,
+  "sort": 0,
+  "flags": {},
+  "pages": [
+    {
+      "_id": "TempestPageSetup",
+      "category": null,
+      "image": {},
+      "name": "Setup",
+      "ownership": {
+        "default": -1
+      },
+      "sort": 100000,
+      "src": null,
+      "system": {},
+      "text": {
+        "content": "<p>Tatzlford is under a supernatural storm. Three level 13 manifestations anchor it, and a\ndeliberately weakened level 16 complex hazard represents the storm itself tearing at the town.\nBuilt for a level 15 party. Treat it as more dangerous than the creature XP suggests: the\nsettlement objectives eat actions and split the party.</p>\n\n<h2>The cast</h2>\n<ul>\n<li>@UUID[Compendium.tatzleford-tempest.actors.Actor.QueensTempstmt07]{Queen's Tempest} &mdash; Hazard 16, complex. Its own initiative entry. Rolls the routine each turn.</li>\n<li>@UUID[Compendium.tatzleford-tempest.actors.Actor.TempestVortxMTah]{Vortex Tempest} &mdash; Creature 13, HP 245. Central streets, chokepoints, pulls enemies in.</li>\n<li>@UUID[Compendium.tatzleford-tempest.actors.Actor.TempestLghtnPWdk]{Lightning Tempest} &mdash; Creature 13, HP 205. Fights at range, relocates after attacking.</li>\n<li>@UUID[Compendium.tatzleford-tempest.actors.Actor.TempestDelugZgnu]{Deluge Tempest} &mdash; Creature 13, HP 225. Owns the river, the bridge, and low ground.</li>\n</ul>\n<p>The hazard and the three creatures roll separate initiative.</p>\n\n<h2>Before the first round</h2>\n<ol>\n<li><strong>Open the scene.</strong> @UUID[Compendium.tatzleford-tempest.scenes.Scene.TempestTatzlfrd1]{The Queen's Tempest at Tatzlford}. The three Tempests are already placed. The map art comes\nfrom the premium <em>pf2e-kingmaker</em> module; without it the scene renders black, so install\nKingmaker before you run this.</li>\n<li><strong>Paint the district grid.</strong> Open the Tempest tools in the scene controls (GM only)\nand drag-paint the town core. Left-drag paints a cell, right-drag erases. Painted cells are the\nstorm's whole world: routines, random sector rolls, and every storm movement stay inside them.\nCover the town from Tatzlford Lodge in the west to Ironhand Smithy in the east, plus the bridge\nand the river bank. Roughly 45&ndash;55 cells; it takes under a minute.</li>\n<li><strong>Cell size is frozen at first paint.</strong> The default cell is 12 squares &mdash; 60 ft,\nexactly the Thunderclap burst. Change the world setting <em>before</em> you paint if you want\ncoarser or finer districts; changing it afterwards invalidates the painted cells.</li>\n<li><strong>Open the storm console.</strong> @UUID[Compendium.tatzleford-tempest.macros.Macro.TempestMacroCnsl]{Open the Storm Console},\nor the console button in the Tempest tool group. Everything below runs from there.</li>\n<li><strong>Decide what is at stake.</strong> Where are the civilians, the escape routes, the things\nthe party will regret losing? Name them before round one so the collateral markers land on\nsomething the players already care about.</li>\n</ol>\n\n<h2>What the module does and does not do</h2>\n<p>The overlay tracks state and shows it to the players. It never rolls a save, applies damage,\nmoves a creature, or resolves a condition &mdash; you resolve everything through PF2e's normal cards.\nToggling a cell to Damaged or Destroyed is a deliberate GM act.</p>",
+        "format": 1
+      },
+      "title": {
+        "level": 1,
+        "show": true
+      },
+      "type": "text",
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "flags": {},
+      "_key": "!journal.pages!TempestGMGuide01.TempestPageSetup"
+    },
+    {
+      "_id": "TempestPageRound",
+      "category": null,
+      "image": {},
+      "name": "Round Flow",
+      "ownership": {
+        "default": -1
+      },
+      "sort": 200000,
+      "src": null,
+      "system": {},
+      "text": {
+        "content": "<p>At the beginning of each @UUID[Compendium.tatzleford-tempest.actors.Actor.QueensTempstmt07]{Queen's Tempest} turn:</p>\n<ol>\n<li><strong>Resolve last turn's collateral.</strong> Every marker placed on the previous hazard turn\nresolves now, unless a hero prevented it or its Tempest died first. Each unresolved marker deals\n<strong>1 damage hit</strong> to its cell or landmark &mdash; toggle it on the overlay.</li>\n<li><strong>Roll 1d3</strong> for the routine.</li>\n<li><strong>If that Tempest is dead</strong>, describe the clouds trying to produce the effect and\nfaltering. The storm takes no action this round. <strong>Do not reroll.</strong></li>\n<li><strong>If it survives, roll a random sector</strong> &mdash; the console's random-cell button picks\nuniformly from the painted cells.</li>\n<li><strong>Resolve the creature-facing effect</strong> in that sector. Place the template from the\nconsole, then run the saves.</li>\n<li><strong>Place the collateral marker</strong> and say out loud what is about to be lost. \"The\nbridge is going\" beats \"sector 4 takes a hit.\"</li>\n</ol>\n\n<table>\n<thead><tr><th>1d3</th><th>Anchor</th><th>Effect</th><th>Area</th><th>Save</th></tr></thead>\n<tbody>\n<tr><td>1</td><td>@UUID[Compendium.tatzleford-tempest.actors.Actor.TempestVortxMTah]{Vortex Tempest}</td><td>Thunderclap</td><td>60-ft burst in the sector</td>\n<td>@Check[fortitude|dc:38]</td></tr>\n<tr><td>2</td><td>@UUID[Compendium.tatzleford-tempest.actors.Actor.TempestLghtnPWdk]{Lightning Tempest}</td><td>Queen's Lightning</td><td>1 creature in the sector</td>\n<td>@Check[reflex|dc:38]</td></tr>\n<tr><td>3</td><td>@UUID[Compendium.tatzleford-tempest.actors.Actor.TempestDelugZgnu]{Deluge Tempest}</td><td>Rending Deluge</td><td>30-ft cone from an edge or watercourse</td>\n<td>@Check[reflex|dc:38]</td></tr>\n</tbody>\n</table>\n\n<h2>1 &mdash; Thunderclap</h2>\n<p>@Template[burst|distance:30] within the selected sector. A concussive peal.</p>\n<ul>\n<li><strong>Critical Success</strong> No effect.</li>\n<li><strong>Success</strong> Half damage.</li>\n<li><strong>Failure</strong> @Damage[8d10[sonic]] damage, deafened for 1 round, pushed 10 feet from\nthe center.</li>\n<li><strong>Critical Failure</strong> Double damage, deafened for 1 minute, pushed 20 feet, and\nknocked prone.</li>\n</ul>\n<p><strong>Collateral</strong> Windows shatter, doors burst, roofs and masonry come down.</p>\n\n<h2>2 &mdash; Queen's Lightning</h2>\n<p>One creature in the selected sector. If nobody is there, the bolt takes a prominent structure and\nonly the collateral is created.</p>\n<ul>\n<li><strong>Critical Success</strong> No damage.</li>\n<li><strong>Success</strong> Half damage.</li>\n<li><strong>Failure</strong> @Damage[10d8[electricity]] damage.</li>\n<li><strong>Critical Failure</strong> Double damage plus @Damage[2d6[persistent,electricity]].</li>\n</ul>\n<p><strong>Collateral</strong> Supernatural fire takes hold in the rain.</p>\n\n<h2>3 &mdash; Rending Deluge</h2>\n<p>@Template[cone|distance:30] from an edge or watercourse in the selected sector. Rain, floodwater,\nand debris.</p>\n<ul>\n<li><strong>Critical Success</strong> No damage.</li>\n<li><strong>Success</strong> Half damage.</li>\n<li><strong>Failure</strong> @Damage[6d10[bludgeoning]] damage and pushed 20 feet from the cone's\norigin.</li>\n<li><strong>Critical Failure</strong> Double damage, hurled 30 feet, and knocked prone.</li>\n</ul>\n<p><strong>Collateral</strong> Floodwater uproots trees, strips roofs, sweeps away carts and walls.</p>\n\n<h2>Then the Tempests act</h2>\n<p>On their own initiative entries, as ordinary creatures. Move the storm overlay when you commit an\nadvance from the console; that is cosmetic weather, separate from where the three creatures stand.</p>",
+        "format": 1
+      },
+      "title": {
+        "level": 1,
+        "show": true
+      },
+      "type": "text",
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "flags": {},
+      "_key": "!journal.pages!TempestGMGuide01.TempestPageRound"
+    },
+    {
+      "_id": "TempestPageInter",
+      "category": null,
+      "image": {},
+      "name": "Storm Intervention",
+      "ownership": {
+        "default": -1
+      },
+      "sort": 300000,
+      "src": null,
+      "system": {},
+      "text": {
+        "content": "<p>A creature that can affect a threatened sector spends <strong>2 actions</strong> and attempts a\nskill check against <strong>DC 35</strong>. It does not need to stand in the sector if its method\nplausibly reaches that far. Drop the DC to <strong>33</strong> when the approach is particularly\nsuitable and raise it to <strong>37</strong> when it is a stretch.</p>\n\n<p>Click the skill the player chose:\n@Check[arcana|dc:35|name:Storm Intervention] &middot;\n@Check[nature|dc:35|name:Storm Intervention] &middot;\n@Check[athletics|dc:35|name:Storm Intervention] &middot;\n@Check[acrobatics|dc:35|name:Storm Intervention] &middot;\n@Check[crafting|dc:35|name:Storm Intervention] &middot;\n@Check[survival|dc:35|name:Storm Intervention]</p>\n\n<h2>Approaches</h2>\n<ul>\n<li><strong>Arcana</strong> or <strong>Nature</strong> &mdash; disrupt the supernatural weather.</li>\n<li><strong>Athletics</strong> &mdash; brace a structure, clear debris, divert water.</li>\n<li><strong>Acrobatics</strong> &mdash; cross a collapsing area, make a dangerous rescue.</li>\n<li><strong>Crafting</strong> &mdash; reinforce or repair a threatened structure.</li>\n<li><strong>Survival</strong> &mdash; predict and redirect wind or floodwater.</li>\n<li>Any credible spell, class feature, or item, usually with a relevant check.</li>\n</ul>\n\n<h2>Degrees of success</h2>\n<ul>\n<li><strong>Critical Success</strong> The collateral event is prevented and the intervention buys\nsomething extra: a Hero Point, a &minus;1 circumstance penalty to the matching Tempest's AC until\nthe end of its next turn, or a comparable benefit.</li>\n<li><strong>Success</strong> The collateral event is prevented.</li>\n<li><strong>Failure</strong> The collateral event resolves normally.</li>\n<li><strong>Critical Failure</strong> The collateral event resolves and the intervening creature\nsuffers the rolled hazard effect as though it stood in the area. If it was already affected, use\nthe worse result rather than applying the damage twice.</li>\n</ul>\n\n<p>Let creative interventions work when they fit the fiction. The DC and the action cost exist for\nconsistency; the real decision is whether a hero spends a turn containing the disaster instead of\nattacking a Tempest.</p>",
+        "format": 1
+      },
+      "title": {
+        "level": 1,
+        "show": true
+      },
+      "type": "text",
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "flags": {},
+      "_key": "!journal.pages!TempestGMGuide01.TempestPageInter"
+    },
+    {
+      "_id": "TempestPageLndmk",
+      "category": null,
+      "image": {},
+      "name": "Landmarks and Damage",
+      "ownership": {
+        "default": -1
+      },
+      "sort": 400000,
+      "src": null,
+      "system": {},
+      "text": {
+        "content": "<p>Every painted cell and every landmark sits in one of three states.</p>\n<ul>\n<li><strong>Safe</strong> &mdash; no significant storm damage.</li>\n<li><strong>Damaged</strong> &mdash; still usable, but a serious setback. Add difficult or uneven\nterrain, blocked routes, lost shelter, endangered civilians.</li>\n<li><strong>Destroyed</strong> &mdash; the landmark is unusable or the neighbourhood is devastated.\nIts loss should have a clear consequence after the encounter.</li>\n</ul>\n<p>An unresolved collateral event deals <strong>1 damage hit</strong>. The first hit moves a target\nfrom Safe to Damaged. When accumulated hits equal its durability, it becomes Destroyed. Hits in\nbetween worsen the fiction while the target stays Damaged.</p>\n\n<h2>Durability</h2>\n<table>\n<thead><tr><th>Scene landmark</th><th>Design target</th><th>Durability</th><th>Consequences</th></tr></thead>\n<tbody><tr><td>A5. Skunk River Bridge</td><td>Bridge</td><td>2</td><td>Damaged: difficult terrain, wagons cannot cross. Destroyed: the crossing is washed away and the evacuation route is cut.</td></tr><tr><td>A9. Tatzlford Fort and Town Hall</td><td>Keep Wall</td><td>3</td><td>Damaged: a partial breach and falling masonry. Destroyed: a major section collapses and the fort is exposed.</td></tr><tr><td>A1. Able's Inn<br />A2. Gnori's Gems<br />A3. Ironhand Smithy<br />A4. River Run Alehouse<br />A6. Tatzlford General Store<br />A7. Tatzlford Library<br />A8. Tatzlford Lodge<br />A10. Tatzlwyrm Tavern<br />A11. Thrillseekers</td><td>Ordinary sector</td><td>3</td><td>Damaged: several structures and routes are compromised. Destroyed: the neighbourhood is devastated.</td></tr><tr><td>Any unnamed painted cell</td><td>Ordinary sector</td><td>3</td><td>As above.</td></tr></tbody>\n</table>\n<p>The design doc's Temple and Mill have no counterpart on the Tatzlford map, so they are omitted.\nIf you want them, nominate two of the ordinary landmarks as stand-ins and drop their durability\nto 2 in the console.</p>\n\n<h2>Toggling state on the map</h2>\n<p>Pick the damage tool in the Tempest scene-control group. <strong>Left-click</strong> a painted\ncell to cycle it Safe &rarr; Damaged &rarr; Destroyed; <strong>right-click</strong> steps it back.\nDamaged cells wash yellow, destroyed cells red, and the change reaches every connected player the\nmoment you make it. The console carries the same tally plus the landmark hit pips.</p>\n<p>Two world settings matter here: hide the whole overlay from players while you prepare, and set\nyour own overlay opacity if the fills sit too heavy over the map.</p>\n\n<h2>Immediate map effects</h2>\n<p>When an area becomes Damaged or Destroyed, change the tactical map where it is cheap to do so:\nrubble, fire, floodwater, fallen trees, a blocked street. The point is to make the town's condition\nvisible, not to invent a second rules layer. Do not track structural Hit Points.</p>",
+        "format": 1
+      },
+      "title": {
+        "level": 1,
+        "show": true
+      },
+      "type": "text",
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "flags": {},
+      "_key": "!journal.pages!TempestGMGuide01.TempestPageLndmk"
+    },
+    {
+      "_id": "TempestPageTmpst",
+      "category": null,
+      "image": {},
+      "name": "Running the Tempests",
+      "ownership": {
+        "default": -1
+      },
+      "sort": 500000,
+      "src": null,
+      "system": {},
+      "text": {
+        "content": "<p>These preferences guide movement only. The @UUID[Compendium.tatzleford-tempest.actors.Actor.QueensTempstmt07]{Queen's Tempest} always picks collateral sectors at random.</p>\n\n<h2>@UUID[Compendium.tatzleford-tempest.actors.Actor.TempestVortxMTah]{Vortex Tempest}</h2>\n<p><em>The Roar.</em> HP 245. Starts on the ring road just west of Tatzlford Fort, in the central\nstreets. It occupies chokepoints, drags enemies into reach with Draw the Sky, and punishes ranged\nattackers with Rolling Echo. It prefers tall, sturdy structures &mdash; the fort and the watchtowers.\nIts kit is sonic; a vortex is what thunder sounds like up close.</p>\n\n<h2>@UUID[Compendium.tatzleford-tempest.actors.Actor.TempestLghtnPWdk]{Lightning Tempest}</h2>\n<p><em>The Wrath.</em> HP 205. Starts in the open ground between the bridge and the town's west\napproach, with clear lines to both. It stays at range, opens on clustered heroes with Forked\nLightning, and teleports away with Ride the Bolt the moment anyone closes. It gravitates toward\ntowers, metal, and crowds. Never let it get pinned in a street.</p>\n\n<h2>@UUID[Compendium.tatzleford-tempest.actors.Actor.TempestDelugZgnu]{Deluge Tempest}</h2>\n<p><em>The Flood.</em> HP 225. Starts in the Skunk River just south of the bridge. It owns the\ncrossing: Flash Flood down the length of the bridge, Undertow on anyone wading, Drown the Streets\nto make a whole sector cost double. Its job is to split the party across the river.</p>\n\n<h2>Moving across the map</h2>\n<p>Tatzlford is large. If ordinary movement makes interventions unviable, allow a creature to spend\n<strong>2 actions to rush to an adjacent district cell</strong> &mdash; sprinting alleys, flying over\nroofs, cutting through buildings. Fast movement, teleportation, and the obvious spells reduce or\nbypass that cost at your discretion.</p>\n\n<h2>Destroying a Tempest</h2>\n<p>When a Tempest drops, its routine result is permanently suppressed and any unresolved collateral\nmarker it created is removed. The console lights an indicator when a Tempest actor hits 0 HP; you\nstill flip its destroyed toggle by hand, so a dying-but-not-dead creature does not switch the storm\noff early.</p>\n\n<h2>Ending the encounter</h2>\n<p>The last Tempest's death ends the @UUID[Compendium.tatzleford-tempest.actors.Actor.QueensTempstmt07]{Queen's Tempest} immediately. Clear every pending marker. The rain\nslackens and the clouds split. Then read the damage tracks out loud: surviving routes, ruined\nlandmarks, rescued civilians, permanent scars. Those outcomes should matter in later scenes even if\nthey impose no combat penalty.</p>",
+        "format": 1
+      },
+      "title": {
+        "level": 1,
+        "show": true
+      },
+      "type": "text",
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "flags": {},
+      "_key": "!journal.pages!TempestGMGuide01.TempestPageTmpst"
+    },
+    {
+      "_id": "TempestPageQuick",
+      "category": null,
+      "image": {},
+      "name": "Quick Reference",
+      "ownership": {
+        "default": -1
+      },
+      "sort": 600000,
+      "src": null,
+      "system": {},
+      "text": {
+        "content": "<ul>\n<li>Hazard routine: roll <strong>1d3</strong>, then a <strong>random painted cell</strong>.</li>\n<li>A dead Tempest's result does nothing. <strong>Do not reroll.</strong></li>\n<li>A surviving result applies its effect now and creates collateral for the next hazard turn.</li>\n<li>Intervention: <strong>2 actions</strong>, <strong>DC 35</strong> (33 suitable / 37 difficult).</li>\n<li>Destroying a Tempest cancels its pending collateral and suppresses its future result.</li>\n<li>Unresolved collateral deals <strong>1 damage hit</strong>.</li>\n<li>Durability: <strong>Skunk River Bridge 2, Tatzlford Fort 3, ordinary sector 3</strong>.</li>\n<li>States: <strong>Safe &rarr; Damaged &rarr; Destroyed</strong>.</li>\n<li>All three routine saves are <strong>DC 38</strong>. All Tempest ability saves are\n<strong>DC 35</strong>.</li>\n<li>HP: Vortex <strong>245</strong>, Deluge <strong>225</strong>, Lightning <strong>205</strong>.\nAll three: AC 34, Fort +27, Ref +25, Will +22, Perception +25, fly 60 ft, physical resistance 10\nexcept magical.</li>\n<li>Default district cell: <strong>12 squares = 60 ft</strong>, one Thunderclap burst.</li>\n</ul>",
+        "format": 1
+      },
+      "title": {
+        "level": 1,
+        "show": true
+      },
+      "type": "text",
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "flags": {},
+      "_key": "!journal.pages!TempestGMGuide01.TempestPageQuick"
+    }
+  ],
+  "_key": "!journal!TempestGMGuide01"
+}
