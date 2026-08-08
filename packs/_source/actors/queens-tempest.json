@@ -1,7 +1,7 @@
 {
     "_id": "QueensTempstmt07",
     "_key": "!actors!QueensTempstmt07",
-    "img": "systems/pf2e/icons/default-icons/hazard.svg",
+    "img": "modules/tatzleford-tempest/assets/hazard.webp",
     "items": [
         {
             "_id": "QtStormIntervn00",
